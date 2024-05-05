@@ -54,6 +54,5 @@ export class LoginComponent {
     console.log(value);
   }
 
-  // fin de la implementacion de la funcion login
-
+  
 }
