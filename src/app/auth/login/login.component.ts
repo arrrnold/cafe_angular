@@ -67,10 +67,10 @@ export class LoginComponent implements OnInit {
       getUsuarios() {
         return this.http.get(this.apiUrl + 'usuarios');
       } */
-        this.authService.getUsuarios().
-            subscribe((data: any) => {
-                console.log(data);
-            });
+
+        this.authService.login({ email: 'tm02arnold@gmail.com', clave: '123' }).subscribe((data: any) => {
+            console.log(data);
+        });
     }
 
 

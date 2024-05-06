@@ -7,15 +7,10 @@ import { HttpClient } from '@angular/common/http';
 export class AuthService {
   constructor(private http: HttpClient) { }
   
-  apiUrl = 'https://api-tt2-ktkr.onrender.com/v1/usuario/' // url del modulo de auth
+  apiUrl = 'https://api-tt2-ktkr.onrender.com/v1/registro/' // url del modulo de auth
   
-  // login(data: any) {
-  //   return this.http.post(this.apiUrl + 'login', data);
-  // }
-
-  // getUsuarios
-  getUsuarios() {
-    return this.http.get(this.apiUrl);
+  login(value: any) {
+    return this.http.post(this.apiUrl + 'login', value)
   }
 
 }
