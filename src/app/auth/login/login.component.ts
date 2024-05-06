@@ -15,15 +15,32 @@ export class LoginComponent implements OnInit {
     constructor(private authService: AuthService) { }
 
     ngOnInit(): void {
-        this.authService.login({ email: 'tm02arnold@gmail.com', clave: '123' }).subscribe((data: any) => {
-            console.log(data);
-        });
+
     }
 
-    
+    onLogin(formValue: any) {
+        console.log(formValue);
+        console.log(formValue.email);
+        console.log(formValue.clave);
 
+        // post para login de usuario *usar next
+        this.authService.login(formValue).subscribe(
+            (res: any) => {
+                console.log(res);
+                if (res.estado == 1) {
+                    console.log('login exitoso');
+                    // redirigir a la pagina de inicio
+                } else {
+                    console.log('login fallido');
+                    // mostrar mensaje de error
+                }
+            },
+            (err: any) => {
+                console.log(err);
+                console.log('error en login');
+                // mostrar mensaje de error
+            }
+        );
 
-    login(value: any) {
-        console.log(value);
     }
 }
