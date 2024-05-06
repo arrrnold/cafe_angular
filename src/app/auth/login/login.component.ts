@@ -11,67 +11,16 @@ import { AuthService } from '../auth.service';
     styleUrl: './login.component.css'
 })
 export class LoginComponent implements OnInit {
-    /*
-    <!-- formulario de Login
-      - Se utiliza la directiva ngForm para el formulario
-      - Se utiliza la directiva ngModel para el binding de los campos del formulario
-      - Se utiliza la directiva ngSubmit para el evento de submit del formulario
-      - Se utiliza la directiva ngIf para mostrar mensajes de error
-  
-      - Se utiliza la directiva ngClass para agregar clases de error a los campos del formulario
-      - Se utiliza la directiva ngClass para agregar clases de error al formulario
-   -->
-  
-  <div class="container">
-      <div class="row">
-          <div class="col-md-6 col-md-offset-3">
-              <h2>Login</h2>
-              <form #f="ngForm" (ngSubmit)="login(f.value)" novalidate>
-                  <div class="form-group" [ngClass]="{'has-error': email.invalid && email.touched}">
-                      <label for="email">Email</label>
-                      <input type="email" class="form-control" id="email" name="email" ngModel #email="ngModel" required>
-                      <div class="help-block" *ngIf="email.invalid && email.touched">
-                          Email is required
-                      </div>
-                  </div>
-                  <div class="form-group" [ngClass]="{'has-error': password.invalid && password.touched}">
-                      <label for="password">Password</label>
-                      <input type="password" class="form-control" id="password" name="password" ngModel
-                          #password="ngModel" required>
-                      <div class="help-block" *ngIf="password.invalid && password.touched">
-                          Password is required
-                      </div>
-                  </div>
-                  <button type="submit" class="btn btn-primary" [disabled]="f.invalid">Login</button>
-              </form>
-          </div>
-      </div>
-  </div>
-    */
-
-    //   // impleentacion de la funcion login en el componente 
-
-    //   login(value: any) {
-    //     console.log(value);
-    //   }
 
     constructor(private authService: AuthService) { }
 
     ngOnInit(): void {
-        // this.authService.login({ email: '', password: '123456' }).
-        //     subscribe((data: any) => {
-        //         console.log(data);
-        //     });
-        /*
-          // getUsuarios
-      getUsuarios() {
-        return this.http.get(this.apiUrl + 'usuarios');
-      } */
-
         this.authService.login({ email: 'tm02arnold@gmail.com', clave: '123' }).subscribe((data: any) => {
             console.log(data);
         });
     }
+
+    
 
 
     login(value: any) {
