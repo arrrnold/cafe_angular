@@ -31,7 +31,7 @@
                 </div>
                 <div class="form-group" [ngClass]="{'has-error': clave.invalid && clave.touched}">
                     <label for="clave">Contraseña</label>
-                    <input type="clave" class="form-control" id="clave" name="clave" ngModel #clave="ngModel" required>
+                    <input type="password" class="form-control" id="clave" name="clave" ngModel #clave="ngModel" required>
                     <div class="help-block" style="color: #5A1236;" *ngIf="clave.invalid && clave.touched">
                         <i>Necesitas una contraseña</i>
                     </div>
