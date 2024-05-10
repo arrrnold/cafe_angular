@@ -4,6 +4,7 @@ import { ResetPasswordComponent } from './auth/reset-password/reset-password.com
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AuthGuard } from './auth/auth.guard';
 import { AlreadyLoggedInGuard } from './auth/already-logged-in.guard';
+import { SendMailComponent } from './auth/send-mail/send-mail.component';
 
 export const routes: Routes = [
     /*
@@ -14,7 +15,7 @@ export const routes: Routes = [
     { path: '', redirectTo: '/auth/login', pathMatch: 'full' }, // Redirigir a /auth/login por defecto
     { path: 'auth/login', component: LoginComponent, canActivate: [AlreadyLoggedInGuard] },
     { path: 'auth/reset_password', component: ResetPasswordComponent },
-    // dashboard
+    { path: 'auth/send_mail', component: SendMailComponent },
     { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
     { path: '**', redirectTo: '/auth/login' } // Redirigir a /auth/login si la ruta no existe
 ];

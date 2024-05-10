@@ -16,12 +16,12 @@
             <img src="../../../assets/img_logo.svg" class="img-fluid" alt="Responsive image">
 
             <!-- items alineados al centro en este container -->
-            <div class="container text-center" style="padding-top: 10%; padding-bottom: 10%;">
-                <h2><b>INICIAR SESIÓN</b></h2>
-                <p>Ingresa tus credenciales para iniciar sesión</p>
+            <div class="container text-center" style="padding-top: 10%; padding-bottom: 5%;">
+                <h2 style="font-size: 28px;"><b>ENVIAR CORREO</b></h2>
+                <p>Ingresa tu correo electrónico para restablecer tu contraseña </p>
             </div>
 
-            <form #f="ngForm" (ngSubmit)="onLogin(f.value)" novalidate>
+            <form #f="ngForm" (ngSubmit)="onSendMail(f.value)" novalidate>
                 <div class="form-group" style="padding-bottom: 5%;"
                     [ngClass]="{'has-error': email.invalid && email.touched}">
                     <label for="email">Correo</label>
@@ -29,22 +29,16 @@
                     <div class="help-block" style="color: #5A1236;" *ngIf="email.invalid && email.touched"><i>Necesitas
                             un correo electrónico</i></div>
                 </div>
-                <div class="form-group" [ngClass]="{'has-error': clave.invalid && clave.touched}">
-                    <label for="clave">Contraseña</label>
-                    <input type="password" class="form-control" id="clave" name="clave" ngModel #clave="ngModel" required>
-                    <div class="help-block" style="color: #5A1236;" *ngIf="clave.invalid && clave.touched">
-                        <i>Necesitas una contraseña</i>
-                    </div>
-                </div>
                 <button type="submit" class="btn btn-primary w-100"
                     style="background-color: #5A1236; border-color: #5A1236; margin-top: 5%; margin-bottom: 5%;"
-                    [disabled]="f.invalid">Iniciar sesión
+                    [disabled]="f.invalid">Enviar correo
                 </button>
             </form>
-            <div *ngIf="loginError" class="alert alert-danger">{{ loginError }}</div>
+
+            <div *ngIf="sendError" class="alert alert-danger">{{ sendError }}</div>
 
             <div class="container text-center">
-                <p>¿Olvidaste tu contraseña? <a href="auth/send_mail " style="color: #5A1236;"> Restablecer Contraseña</a></p>
+                <p>¿Recordaste tu contraseña? <a href="auth/reset_password" style="color: #5A1236;"> Inicia Sesión</a></p>
             </div>
 
         </div>

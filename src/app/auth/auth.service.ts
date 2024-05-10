@@ -21,8 +21,17 @@ export class AuthService {
     return this.http.post(this.apiUrl + 'enviarEmail', value)
   }
 
-  cambiarClave(value: any) {
-    return this.http.post(this.apiUrl + 'cambiarClave', value)
+  cambiarClave(token: string, clave: string) {
+
+    /*
+
+    {
+      "token_de_restablecimiento":"das",
+      "nueva_clave":"31"
+    }
+
+    */
+    return this.http.post(this.apiUrl + 'cambiarClave', { token_de_restablecimiento: token, nueva_clave: clave })
   }
 
   // Método para verificar si el usuario está autenticado

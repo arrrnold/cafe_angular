@@ -13,14 +13,38 @@ import { AuthService } from '../auth.service';
   templateUrl: './reset-password.component.html',
   styleUrl: './reset-password.component.css'
 })
-export class ResetPasswordComponent {
+export class ResetPasswordComponent implements OnInit {
 
-  sendError = '';
+  resetError = '';
 
-  onSendMail(formValue: any) {
-    // TODO: Implementar la lógica para enviar el correo electrónico
-    console.log('Correo electrónico enviado a: ' + formValue.email);
+  ngOnInit(): void { }
+
+  constructor(private authService: AuthService) { }
+
+  onResetPassword(form: any) {
+    // verificar que la clave y la confirmación sean iguales
+    if (form.password != form.confirmPassword) {
+      this.resetError = 'Las claves no coinciden. Verifica e inténtalo de nuevo.';
+      return;
+    }
+
+    this.authService.cambiarClave(form.token, form.password)
+      .subscribe({
+        next: (res: any) => {
+          if (res.estado == 1) {
+            console.log('contraseña cambiada');
+            // navegar hacia el login
+            window.location.href = '/auth/login';
+          } else {
+            console.log('error al cambiar la contraseña');
+            this.resetError = res.mensaje;
+          }
+        },
+        error: (err: any) => {
+          console.log('error al cambiar la contraseña');
+          this.resetError = 'Error restablecer la contraseña. Verifica los campos e inténtalo de nuevo.';
+        }
+      });
   }
-
 
 }
