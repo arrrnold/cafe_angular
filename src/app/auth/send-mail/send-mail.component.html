@@ -8,41 +8,47 @@
     - Se utiliza la directiva ngClass para agregar clases de error al formulario
  -->
 
-<!-- Container responsive que cuando se mira en un movil se adapta al tamaño de la pantalla -->
-<div class="container-fluid d-flex justify-content-center align-items-center"
-    style="height: 100vh; width:fit-content; background-color: #5A1236;">
+<body style="background-color: #5A1236;">
+    <!-- Container responsive que cuando se mira en un movil se adapta al tamaño de la pantalla -->
+    <div class="container-fluid d-flex justify-content-center align-items-center"
+        style="height: 100vh; width:fit-content; background-color: #5A1236;">
 
-    <div class="container-fluid rounded" style="background-color: white; padding: 5%;">
-        <div class="col custom-font" style="display: inline-block;">
-            <!-- logo de la empresa que se hace pequeño en un dispositivo movil-->
-            <img src="../../../assets/img/img_logo.svg" class="img-fluid" alt="Responsive image">
+        <div class="container-fluid rounded" style="background-color: white; padding: 5%;">
+            <div class="col custom-font" style="display: inline-block;">
+                <!-- logo de la empresa que se hace pequeño en un dispositivo movil-->
+                <img src="../../../assets/img/img_logo.svg" class="img-fluid" alt="Responsive image">
 
-            <!-- items alineados al centro en este container -->
-            <div class="container text-center" style="padding-top: 10%; padding-bottom: 5%;">
-                <h2 style="font-size: 28px;"><b>ENVIAR CORREO</b></h2>
-                <p>Ingresa tu correo electrónico para restablecer tu contraseña </p>
-            </div>
-
-            <form #f="ngForm" (ngSubmit)="onSendMail(f.value)" novalidate>
-                <div class="form-group" style="padding-bottom: 5%;"
-                    [ngClass]="{'has-error': email.invalid && email.touched}">
-                    <label for="email">Correo</label>
-                    <input type="email" class="form-control" id="email" name="email" ngModel #email="ngModel" required>
-                    <div class="help-block" style="color: #5A1236;" *ngIf="email.invalid && email.touched"><i>Necesitas
-                            un correo electrónico</i></div>
+                <!-- items alineados al centro en este container -->
+                <div class="container text-center" style="padding-top: 10%; padding-bottom: 5%;">
+                    <h2><b>ENVIAR CORREO</b></h2>
+                    <p>Ingresa tu correo electrónico para restablecer tu contraseña </p>
                 </div>
-                <button type="submit" class="btn btn-primary w-100"
-                    style="background-color: #5A1236; border-color: #5A1236; margin-top: 5%; margin-bottom: 5%;"
-                    [disabled]="f.invalid">Enviar correo
-                </button>
-            </form>
 
-            <div *ngIf="sendError" class="alert alert-danger">{{ sendError }}</div>
+                <form #f="ngForm" (ngSubmit)="onSendMail(f.value)" novalidate>
+                    <div class="form-group" style="padding-bottom: 5%;"
+                        [ngClass]="{'has-error': email.invalid && email.touched}">
+                        <label for="email">Correo</label>
+                        <input type="email" class="form-control" id="email" name="email" ngModel #email="ngModel"
+                            required>
+                        <div class="help-block" style="color: #5A1236;" *ngIf="email.invalid && email.touched">
+                            <i>Necesitas
+                                un correo electrónico</i>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100"
+                        style="background-color: #5A1236; border-color: #5A1236; margin-top: 5%; margin-bottom: 5%;"
+                        [disabled]="f.invalid">Enviar correo
+                    </button>
+                </form>
 
-            <div class="container text-center">
-                <p>¿Recordaste tu contraseña? <a href="auth/reset_password" style="color: #5A1236;"> Inicia Sesión</a></p>
+                <div *ngIf="sendError" class="alert alert-danger">{{ sendError }}</div>
+
+                <div class="container text-center">
+                    <p>¿Recordaste tu contraseña? <a href="auth/reset_password" style="color: #5A1236;"> Inicia
+                            Sesión</a></p>
+                </div>
+
             </div>
-
         </div>
     </div>
-</div>
+</body>
