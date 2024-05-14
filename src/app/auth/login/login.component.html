@@ -8,8 +8,10 @@
     - Se utiliza la directiva ngClass para agregar clases de error al formulario
  -->
 
+<!-- Container responsive que cuando se mira en un movil se adapta al tamaño de la pantalla -->
 <div class="container-fluid d-flex justify-content-center align-items-center"
-    style="height: 100vh; width: max-content;">
+    style="height: 100vh; width:fit-content; background-color: #5A1236;">
+
     <div class="container-fluid rounded" style="background-color: white; padding: 5%;">
         <div class="col custom-font" style="display: inline-block;">
             <!-- logo de la empresa que se hace pequeño en un dispositivo movil-->
@@ -31,7 +33,8 @@
                 </div>
                 <div class="form-group" [ngClass]="{'has-error': clave.invalid && clave.touched}">
                     <label for="clave">Contraseña</label>
-                    <input type="password" class="form-control" id="clave" name="clave" ngModel #clave="ngModel" required>
+                    <input type="password" class="form-control" id="clave" name="clave" ngModel #clave="ngModel"
+                        required>
                     <div class="help-block" style="color: #5A1236;" *ngIf="clave.invalid && clave.touched">
                         <i>Necesitas una contraseña</i>
                     </div>
@@ -44,8 +47,10 @@
             <div *ngIf="loginError" class="alert alert-danger">{{ loginError }}</div>
 
             <div class="container text-center">
-                <p>¿Olvidaste tu contraseña? <a href="auth/send_mail " style="color: #5A1236;"> Restablecer Contraseña</a></p>
+                <p>¿Olvidaste tu contraseña? <a href="auth/send_mail " style="color: #5A1236;"> Restablecer
+                        Contraseña</a></p>
             </div>
 
         </div>
     </div>
+</div>
