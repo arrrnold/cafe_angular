@@ -75,7 +75,7 @@
         </div>
       </div>
     </div>
-
+    <!-- ./sidebar   -->
 
     <!-- Contenido principal -->
     <div class="col py-3">
@@ -83,26 +83,86 @@
         <!-- Titulo y un boton de agregar producto alineados horizontalmente -->
         <div class="col-lg-auto d-flex justify-content-between w-100">
           <h3>Agregar Producto</h3>
-          <!-- Boton de agregar nuevo producto-->
-          <button type="button" class="btn btn-primary"
-                  style="background-color: #5A1236; border-color: #5A1236;">Agregar
-            nuevo producto
+          <!-- Boton de agregar nuevo producto (alterna el modal que aparece y desaparece segun si se-->
+          <!-- le da clic o no) -->
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                  style="background-color: #5A1236; border-color: #5A1236">
+            Agregar nuevo producto
           </button>
         </div>
 
+        <!-- Modal de agregar producto -->
+        <!--        Los campos en la BD son
+            id            INT         NOT NULL AUTO_INCREMENT UNIQUE,
+            precio        INT         NOT NULL CHECK (precio > 0),
+            cantidad      INT         NOT NULL check ( cantidad >= 0),
+            recomendacion TINYINT     NOT NULL,           # 1 recomendado, 0 no recomendado
+            imagen        BLOB        NOT NULL,
+            categoria     VARCHAR(20) NOT NULL,           # solo: 'bebida abierta', 'bebida cerrada' y 'alimentos'
+            nombre        VARCHAR(50) NOT NULL,
+        -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header" style="background-color: #5A1236; color: white;">
+                <h5 class="modal-title" id="exampleModalLabel">Agregar Producto</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <form action="/agregar_producto" method="post" enctype="multipart/form-data">
+                  <div class="mb-3">
+                    <label for="nombre" class="form-label">Nombre</label>
+                    <input type="text" class="form-control" id="nombre" name="nombre" required>
+                  </div>
+                  <div class="mb-3">
+                    <label for="precio" class="form-label">Precio</label>
+                    <input type="number" class="form-control" id="precio" name="precio" required>
+                  </div>
+                  <div class="mb-3">
+                    <label for="cantidad" class="form-label">Cantidad</label>
+                    <input type="number" class="form-control" id="cantidad" name="cantidad" required>
+                  </div>
+                  <div class="mb-3">
+                    <label for="categoria" class="form-label">Categoria</label>
+                    <select class="form-select" id="categoria" name="categoria" required>
+                      <option value="bebida abierta">Bebida abierta</option>
+                      <option value="bebida cerrada">Bebida cerrada</option>
+                      <option value="alimentos">Alimento</option>
+                    </select>
+                  </div>
+                  <!--                  Campo de recomendacion -->
+                  <div class="mb-3">
+                    <label for="recomendacion" class="form-label">¿Es una recomendación?</label>
+                    <select class="form-select" id="recomendacion" name="categoria" required>
+                      <option value="alimentos">Sí</option>
+                      <option value="alimentos">No</option>
+                    </select>
+                  </div>
+
+                  <div class="mb-3">
+                    <label for="imagen" class="form-label">Foto del producto</label>
+                    <input type="file" class="form-control" id="imagen" name="imagen" required>
+                  </div>
+
+                  <button type="submit" class="btn btn-primary"
+                          style="background-color: #5A1236; border-color: #5A1236">
+                    Agregar
+
+                  </button>
+
+                  <!--cancelar-->
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                          style="background-color: #5A1236; border-color: #5A1236">
+                    Cancelar
+                  </button>
+
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <p class="lead">
-        An example 2-level sidebar with collasible menu items. The menu functions like an "accordion" where
-        only
-        a single
-        menu is be open at a time. While the sidebar itself is not toggle-able, it does responsively shrink
-        in
-        width on smaller screens.</p>
-      <ul class="list-unstyled">
-        <li>
-          <h5>Responsive</h5> shrinks in width, hides text labels and collapses to icons only on mobile
-        </li>
-      </ul>
     </div>
   </div>
 </div>
+
