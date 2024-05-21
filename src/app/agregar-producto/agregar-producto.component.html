@@ -106,7 +106,8 @@
             <div class="modal-content">
               <div class="modal-header" style="background-color: #5A1236; color: white;">
                 <h5 class="modal-title" id="exampleModalLabel">Agregar Producto</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                        style="background-color: white"></button>
               </div>
               <div class="modal-body">
                 <form action="/agregar_producto" method="post" enctype="multipart/form-data">
@@ -143,18 +144,20 @@
                     <label for="imagen" class="form-label">Foto del producto</label>
                     <input type="file" class="form-control" id="imagen" name="imagen" required>
                   </div>
+                  <!--            alinear este elemento al end-->
+                  <div class="text-end">
+                    <button type="submit" class="btn btn-primary"
+                            style="background-color: #5A1236; border-color: #5A1236;">
+                      Guardar
+                    </button>
 
-                  <button type="submit" class="btn btn-primary"
-                          style="background-color: #5A1236; border-color: #5A1236">
-                    Agregar
+                    <!--cancelar-->
+                    <button type="button" class="btn btn-secondary ms-2" data-bs-dismiss="modal"
+                            style="background-color: #5A1236; border-color: #5A1236;">
+                      Cancelar
+                    </button>
+                  </div>
 
-                  </button>
-
-                  <!--cancelar-->
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
-                          style="background-color: #5A1236; border-color: #5A1236">
-                    Cancelar
-                  </button>
 
                 </form>
               </div>
@@ -165,4 +168,5 @@
     </div>
   </div>
 </div>
+<!-- ./contenido principal -->
 
