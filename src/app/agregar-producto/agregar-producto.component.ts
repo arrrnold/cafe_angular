@@ -1,32 +1,25 @@
 import {Component} from '@angular/core';
 import {NgForOf} from "@angular/common";
+import {NgxPaginationModule} from 'ngx-pagination';
 
 @Component({
   selector: 'app-agregar-producto',
   standalone: true,
   imports: [
-    NgForOf
+    NgForOf,
+    NgxPaginationModule
   ],
   templateUrl: './agregar-producto.component.html',
-  styleUrl: './agregar-producto.component.css'
+  styleUrls: ['./agregar-producto.component.css']
 })
 export class AgregarProductoComponent {
-
-  // 10 productos con estas variables
-  // //{ producto.nombre }}</td>
-  //               <td>{{ producto.precio }}</td>
-  //               <td>{{ producto.cantidad }}</td>
-  //               <td>{{ producto.categoria }}</td>
-  //               <td>{{ producto.recomendacion }}</td>
-  //               <td><img src="{{producto.imagen}}"
-
   productos = [
     {
       nombre: 'Producto 1',
       precio: 100,
       cantidad: 10,
       categoria: 'Categoria 1',
-      recomendacion: 'Recomendacion 1',
+      recomendacion: 'Si',
       imagen: 'https://via.placeholder.com/150'
     },
     {
@@ -34,7 +27,7 @@ export class AgregarProductoComponent {
       precio: 200,
       cantidad: 20,
       categoria: 'Categoria 2',
-      recomendacion: 'Recomendacion 2',
+      recomendacion: 'Si',
       imagen: 'https://via.placeholder.com/150'
     },
     {
@@ -42,7 +35,7 @@ export class AgregarProductoComponent {
       precio: 300,
       cantidad: 30,
       categoria: 'Categoria 3',
-      recomendacion: 'Recomendacion 3',
+      recomendacion: 'Si',
       imagen: 'https://via.placeholder.com/150'
     },
     {
@@ -50,7 +43,7 @@ export class AgregarProductoComponent {
       precio: 400,
       cantidad: 40,
       categoria: 'Categoria 4',
-      recomendacion: 'Recomendacion 4',
+      recomendacion: 'Si',
       imagen: 'https://via.placeholder.com/150'
     },
     {
@@ -58,7 +51,7 @@ export class AgregarProductoComponent {
       precio: 500,
       cantidad: 50,
       categoria: 'Categoria 5',
-      recomendacion: 'Recomendacion 5',
+      recomendacion: 'Si',
       imagen: 'https://via.placeholder.com/150'
     },
     {
@@ -66,7 +59,7 @@ export class AgregarProductoComponent {
       precio: 600,
       cantidad: 60,
       categoria: 'Categoria 6',
-      recomendacion: 'Recomendacion 6',
+      recomendacion: 'Si',
       imagen: 'https://via.placeholder.com/150'
     },
     {
@@ -74,7 +67,7 @@ export class AgregarProductoComponent {
       precio: 700,
       cantidad: 70,
       categoria: 'Categoria 7',
-      recomendacion: 'Recomendacion 7',
+      recomendacion: 'Si',
       imagen: 'https://via.placeholder.com/150'
     },
     {
@@ -82,7 +75,7 @@ export class AgregarProductoComponent {
       precio: 800,
       cantidad: 80,
       categoria: 'Categoria 8',
-      recomendacion: 'Recomendacion 8',
+      recomendacion: 'Si',
       imagen: 'https://via.placeholder.com/150'
     },
     {
@@ -90,7 +83,7 @@ export class AgregarProductoComponent {
       precio: 900,
       cantidad: 90,
       categoria: 'Categoria 9',
-      recomendacion: 'Recomendacion 9',
+      recomendacion: 'No',
       imagen: 'https://via.placeholder.com/150'
     },
     {
@@ -98,8 +91,92 @@ export class AgregarProductoComponent {
       precio: 1000,
       cantidad: 100,
       categoria: 'Categoria 10',
-      recomendacion: 'Recomendacion 10',
+      recomendacion: 'No',
+      imagen: 'https://via.placeholder.com/150'
+    },
+    // otros 10 con nombres reales
+    {
+      nombre: 'Producto 11',
+      precio: 1100,
+      cantidad: 110,
+      categoria: 'Categoria 11',
+      recomendacion: 'No',
+      imagen: 'https://via.placeholder.com/150'
+    },
+    {
+      nombre: 'Producto 12',
+      precio: 1200,
+      cantidad: 120,
+      categoria: 'Categoria 12',
+      recomendacion: 'No',
+      imagen: 'https://via.placeholder.com/150'
+    },
+    {
+      nombre: 'Producto 13',
+      precio: 1300,
+      cantidad: 130,
+      categoria: 'Categoria 13',
+      recomendacion: 'No',
+      imagen: 'https://via.placeholder.com/150'
+    },
+    {
+      nombre: 'Producto 14',
+      precio: 1400,
+      cantidad: 140,
+      categoria: 'Categoria 14',
+      recomendacion: 'No',
+      imagen: 'https://via.placeholder.com/150'
+    },
+    {
+      nombre: 'Producto 15',
+      precio: 1500,
+      cantidad: 150,
+      categoria: 'Categoria 15',
+      recomendacion: 'No',
+      imagen: 'https://via.placeholder.com/150'
+    },
+    {
+      nombre: 'Producto 16',
+      precio: 1600,
+      cantidad: 160,
+      categoria: 'Categoria 16',
+      recomendacion: 'No',
+      imagen: 'https://via.placeholder.com/150'
+    },
+    {
+      nombre: 'Producto 17',
+      precio: 1700,
+      cantidad: 170,
+      categoria: 'Categoria 17',
+      recomendacion: 'No',
+      imagen: 'https://via.placeholder.com/150'
+    },
+    {
+      nombre: 'Producto 18',
+      precio: 1800,
+      cantidad: 180,
+      categoria: 'Categoria 18',
+      recomendacion: 'No',
+      imagen: 'https://via.placeholder.com/150'
+    },
+    {
+      nombre: 'Producto 19',
+      precio: 1900,
+      cantidad: 190,
+      categoria: 'Categoria 19',
+      recomendacion: 'No',
+      imagen: 'https://via.placeholder.com/150'
+    },
+    {
+      nombre: 'Producto 20',
+      precio: 2000,
+      cantidad: 200,
+      categoria: 'Categoria 20',
+      recomendacion: 'No',
       imagen: 'https://via.placeholder.com/150'
     }
   ];
+
+  page: number = 1;
+  protected readonly Math = Math;
 }
