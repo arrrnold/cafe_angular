@@ -80,6 +80,7 @@
     <!-- Contenido principal -->
     <div class="col py-3">
       <div class="row">
+
         <!-- Titulo y un boton de agregar producto alineados horizontalmente -->
         <div class="col-lg-auto d-flex justify-content-between w-100">
           <h3>Agregar Producto</h3>
@@ -90,71 +91,6 @@
             Agregar nuevo producto
           </button>
         </div>
-
-        <!--        Modal de registro de producto -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header" style="background-color: #5A1236; color: white;">
-                <h5 class="modal-title" id="exampleModalLabel">Agregar Producto</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-                        style="background-color: white"></button>
-              </div>
-              <div class="modal-body">
-                <form action="/agregar_producto" method="post" enctype="multipart/form-data">
-                  <div class="mb-3">
-                    <label for="nombre" class="form-label">Nombre</label>
-                    <input type="text" class="form-control" id="nombre" name="nombre" required>
-                  </div>
-                  <div class="mb-3">
-                    <label for="precio" class="form-label">Precio</label>
-                    <input type="number" class="form-control" id="precio" name="precio" required>
-                  </div>
-                  <div class="mb-3">
-                    <label for="cantidad" class="form-label">Cantidad</label>
-                    <input type="number" class="form-control" id="cantidad" name="cantidad" required>
-                  </div>
-                  <div class="mb-3">
-                    <label for="categoria" class="form-label">Categoria</label>
-                    <select class="form-select" id="categoria" name="categoria" required>
-                      <option value="bebida abierta">Bebida abierta</option>
-                      <option value="bebida cerrada">Bebida cerrada</option>
-                      <option value="alimentos">Alimento</option>
-                    </select>
-                  </div>
-                  <!--                  Campo de recomendacion -->
-                  <div class="mb-3">
-                    <label for="recomendacion" class="form-label">¿Es una recomendación?</label>
-                    <select class="form-select" id="recomendacion" name="categoria" required>
-                      <option value="alimentos">Sí</option>
-                      <option value="alimentos">No</option>
-                    </select>
-                  </div>
-
-                  <div class="mb-3">
-                    <label for="imagen" class="form-label">Foto del producto</label>
-                    <input type="file" class="form-control" id="imagen" name="imagen" required>
-                  </div>
-                  <!--            alinear este elemento al end-->
-                  <div class="text-end">
-                    <button type="submit" class="btn btn-primary"
-                            style="background-color: #5A1236; border-color: #5A1236;">
-                      Guardar
-                    </button>
-
-                    <!--cancelar-->
-                    <button type="button" class="btn bg-white border-black ms-2" data-bs-dismiss="modal">
-                      Cancelar
-                    </button>
-                  </div>
-
-
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- ./modal -->
 
         <!--        Tabla de productos en AngularJS-->
         <div class="col-lg-12">
@@ -198,6 +134,74 @@
           </div>
         </div>
       </div>
+      <!-- ./contenido principal -->
+
+      <!--      *********************** MODALS ************************    -->
+
+      <!--        Modal de registro de producto -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header" style="background-color: #5A1236; color: white;">
+              <h5 class="modal-title" id="exampleModalLabel">Agregar Producto</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                      style="background-color: white"></button>
+            </div>
+            <div class="modal-body">
+              <form action="/agregar_producto" method="post" enctype="multipart/form-data">
+                <div class="mb-3">
+                  <label for="nombre" class="form-label">Nombre</label>
+                  <input type="text" class="form-control" id="nombre" name="nombre" required>
+                </div>
+                <div class="mb-3">
+                  <label for="precio" class="form-label">Precio</label>
+                  <input type="number" class="form-control" id="precio" name="precio" required>
+                </div>
+                <div class="mb-3">
+                  <label for="cantidad" class="form-label">Cantidad</label>
+                  <input type="number" class="form-control" id="cantidad" name="cantidad" required>
+                </div>
+                <div class="mb-3">
+                  <label for="categoria" class="form-label">Categoria</label>
+                  <select class="form-select" id="categoria" name="categoria" required>
+                    <option value="bebida abierta">Bebida abierta</option>
+                    <option value="bebida cerrada">Bebida cerrada</option>
+                    <option value="alimentos">Alimento</option>
+                  </select>
+                </div>
+                <!--                  Campo de recomendacion -->
+                <div class="mb-3">
+                  <label for="recomendacion" class="form-label">¿Es una recomendación?</label>
+                  <select class="form-select" id="recomendacion" name="categoria" required>
+                    <option value="alimentos">Sí</option>
+                    <option value="alimentos">No</option>
+                  </select>
+                </div>
+
+                <div class="mb-3">
+                  <label for="imagen" class="form-label">Foto del producto</label>
+                  <input type="file" class="form-control" id="imagen" name="imagen" required>
+                </div>
+                <!--            alinear este elemento al end-->
+                <div class="text-end">
+                  <button type="submit" class="btn btn-primary"
+                          style="background-color: #5A1236; border-color: #5A1236;">
+                    Guardar
+                  </button>
+
+                  <!--cancelar-->
+                  <button type="button" class="btn bg-white border-black ms-2" data-bs-dismiss="modal">
+                    Cancelar
+                  </button>
+                </div>
+
+
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- ./modal -->
 
       <!--        Modal de editar producto-->
       <div class="modal fade" id="editarProducto" tabindex="-1" aria-labelledby="exampleModalLabel"
