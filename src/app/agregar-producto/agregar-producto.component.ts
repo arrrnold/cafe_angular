@@ -1,14 +1,18 @@
 import {Component, OnInit} from '@angular/core';
-import {NgForOf} from "@angular/common";
+import {CommonModule, NgClass, NgForOf} from "@angular/common";
 import {NgxPaginationModule} from 'ngx-pagination';
 import {ProductosService} from "./productos.service";
+import {FormsModule} from "@angular/forms";
 
 @Component({
   selector: 'app-agregar-producto',
   standalone: true,
   imports: [
     NgForOf,
-    NgxPaginationModule
+    NgxPaginationModule,
+    NgClass,
+    FormsModule,
+    CommonModule
   ],
   templateUrl: './agregar-producto.component.html',
   styleUrls: ['./agregar-producto.component.css']
@@ -20,6 +24,10 @@ export class AgregarProductoComponent implements OnInit {
 
   respuesta: any;
   productos: any;
+  nombre = '';
+  precio = '';
+  
+
 
   ngOnInit() {
     this.productosService.getProductos().subscribe((data: any) => {
@@ -36,4 +44,13 @@ export class AgregarProductoComponent implements OnInit {
 
   page: number = 1;
   protected readonly Math = Math;
+
+  onAgregarProducto(value: any) {
+    // console.log(value);
+    
+  }
+
+  onEditarProducto(value: any) {
+    console.log(value);
+  }
 }
