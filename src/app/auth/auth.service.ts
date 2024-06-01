@@ -1,3 +1,4 @@
+// auth.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
@@ -5,33 +6,24 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class AuthService {
-  apiUrl = 'https://api-tt2-ktkr.onrender.com/v1/registro/' // url del modulo de auth
+  apiUrl = 'https://api-tt2-ktkr.onrender.com/v1/registro/'; // URL del módulo de auth
 
   constructor(private http: HttpClient) { }
 
   login(value: any) {
-    return this.http.post(this.apiUrl + 'login', value)
+    return this.http.post(this.apiUrl + 'login', value);
   }
 
   register(value: any) {
-    return this.http.post(this.apiUrl + 'register', value)
+    return this.http.post(this.apiUrl + 'register', value);
   }
 
   enviarEmail(value: any) {
-    return this.http.post(this.apiUrl + 'enviarEmail', value)
+    return this.http.post(this.apiUrl + 'enviarEmail', value);
   }
 
   cambiarClave(token: string, clave: string) {
-
-    /*
-
-    {
-      "token_de_restablecimiento":"das",
-      "nueva_clave":"31"
-    }
-
-    */
-    return this.http.post(this.apiUrl + 'cambiarClave', { token_de_restablecimiento: token, nueva_clave: clave })
+    return this.http.post(this.apiUrl + 'cambiarClave', { token_de_restablecimiento: token, nueva_clave: clave });
   }
 
   // Método para verificar si el usuario está autenticado

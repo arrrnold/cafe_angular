@@ -16,25 +16,23 @@ export const routes: Routes = [
     rutas:
         auth/login
         auth/reset-password
-        auth/send_mail
+        auth/send-mail
         dashboard
         pedidos
         reporte
         usuarios
         ajustes
-        agregar_producto
+        agregar-producto
     */
     { path: '', redirectTo: '/auth/login', pathMatch: 'full' }, // Redirigir a /auth/login por defecto
     { path: 'auth/login', component: LoginComponent, canActivate: [AlreadyLoggedInGuard] },
-    { path: 'auth/reset_password', component: ResetPasswordComponent },
-    { path: 'auth/send_mail', component: SendMailComponent },
+    { path: 'auth/reset-password', component: ResetPasswordComponent },
+    { path: 'auth/send-mail', component: SendMailComponent },
     { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
     { path: 'pedidos', component: PedidosComponent, canActivate: [AuthGuard] },
+    { path: 'agregar_producto', component: AgregarProductoComponent, canActivate: [AuthGuard] },
     { path: 'reporte', component: ReporteComponent, canActivate: [AuthGuard] },
     { path: 'usuarios', component: UsuariosComponent, canActivate: [AuthGuard] },
     { path: 'ajustes', component: AjustesComponent, canActivate: [AuthGuard] },
-    { path: 'agregar_producto', component: AgregarProductoComponent },
-    { path: '**', redirectTo: '/auth/login' }, // Redirigir a /auth/login si la ruta no existe,
-
-
+    { path: '**', redirectTo: '/auth/login' }, // Redirigir a /auth/login si la ruta no existe
 ];

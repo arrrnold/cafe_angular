@@ -19,48 +19,46 @@ import { FormsModule } from "@angular/forms";
 })
 export class AgregarProductoComponent implements OnInit {
 
-  constructor(private productosService: ProductosService) {
-  }
+  constructor(private productosService: ProductosService) {}
 
+  mensajeExito: string = "";
+  mensajeError: string = "";
   respuesta: any;
-  productos: any;
-
+  productos: any = [];
+  page: number = 1;
+  protected readonly Math = Math;
 
   ngOnInit() {
     this.productosService.getProductos().subscribe((data: any) => {
       this.respuesta = data;
       this.productos = this.respuesta.productos;
 
-      // si el estado del producto "visible" = true entonces se muestra en la tabla
       this.productos.forEach((producto: any) => {
         producto.visible = false;
+        producto.recomendacion = producto.recomendacion ? "Sí" : "No";
       });
-
-      if (this.productos.recomendacion == true) {
-        this.productos.recomendacion = "Si";
-      } else {
-        this.productos.recomendacion = "No";
-      }
     });
   }
 
-  page: number = 1;
-  protected readonly Math = Math;
-
   onAgregarProducto(producto: any) {
     producto.visible = true;
-
-    // convertir la imagen del producto para guardarla en la bd y mostrarla en la tabla
-    const reader = new FileReader();
-    reader.readAsDataURL(producto.imagen);
-    reader.onload = () => {
-      producto.imagen = reader.result;
-    };
-
-
     console.log(producto);
 
-
+    this.productosService.agregarProducto(producto).subscribe({
+      next: (res: any) => {
+        console.log(res);
+        if (res.estado === 1) {
+          this.mensajeExito = "Producto agregado correctamente";
+          this.productos.push(producto);
+        } else {
+          this.mensajeError = "Error al agregar producto";
+        }
+      },
+      error: (error: any) => {
+        console.log(error);
+        this.mensajeError = "Error al agregar producto";
+      }
+    });
   }
 
   onEditarProducto(producto: any) {
