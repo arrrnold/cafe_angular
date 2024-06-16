@@ -101,8 +101,27 @@ export class AgregarProductoComponent implements OnInit {
       visible: true
     }).subscribe((data: any) => {
       this.respuesta = data;
-      if (this.respuesta.status === 200) {
+      console.log(this.respuesta);
+      if (this.respuesta.estado === 1) {
         this.mensajeExito = this.respuesta.mensaje;
+
+        // Actualizar la lista de productos
+        this.productosService.getProductos().subscribe((data: any) => {
+          this.respuesta = data;
+          this.productos = this.respuesta.productos;
+
+          this.productos.forEach((producto: any) => {
+            producto.visible = false;
+            producto.recomendacion = producto.recomendacion ? "Sí" : "No";
+          });
+        });
+
+        // Borrar el mensaje despues de 5 segundos
+        setTimeout(() => {
+          this.mensajeExito = "";
+        }, 5000);
+
+        
       } else {
         this.mensajeError = this.respuesta.mensaje;
       }

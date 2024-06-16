@@ -67,6 +67,9 @@
     <!-- ./Sídebar   -->
     <!-- Contenido principal -->
     <div class="col py-3">
+
+
+
       <div class="row">
         <div class="col-lg-auto d-flex justify-content-between w-100 mb-4">
           <h4>Agregar Producto</h4>
@@ -125,11 +128,23 @@
             <li class="page-item" [class.disabled]="page === 1">
               <a class="page-link" (click)="page = page - 1" tabindex="-1">Anterior</a>
             </li>
-            <li class="page-item"
-              *ngFor="let p of [].constructor(Math.ceil(productos.length / itemsPerPage)); let i = index"
-              [class.active]="page === i + 1">
-              <a class="page-link" (click)="page = i + 1">{{ i + 1 }}</a>
-            </li>
+            <ng-container *ngIf="Math.ceil(productos.length / itemsPerPage) > 4; else allPages">
+              <li class="page-item" [class.active]="page === i + 1" *ngFor="let p of [].constructor(4); let i = index">
+                <a class="page-link" (click)="page = i + 1">{{ i + 1 }}</a>
+              </li>
+              <li class="page-item">
+                <a class="page-link puntos">...</a>
+              </li>
+              <li class="page-item" [class.active]="page === Math.ceil(productos.length / itemsPerPage)">
+                <a class="page-link" (click)="page = Math.ceil(productos.length / itemsPerPage)">{{ Math.ceil(productos.length / itemsPerPage) }}</a>
+              </li>
+            </ng-container>
+            <ng-template #allPages>
+              <li class="page-item" [class.active]="page === i + 1"
+                *ngFor="let p of [].constructor(Math.ceil(productos.length / itemsPerPage)); let i = index">
+                <a class="page-link" (click)="page = i + 1">{{ i + 1 }}</a>
+              </li>
+            </ng-template>
             <li class="page-item" [class.disabled]="page === Math.ceil(productos.length / itemsPerPage)">
               <a class="page-link" (click)="page = page + 1">Siguiente</a>
             </li>
@@ -152,6 +167,15 @@
         <div class="modal-body d-flex justify-content-center">
           <!-- 2 columnas, la izquierda de 25% y la derecha de 75%, alineado vertical y horizontalmente -->
           <div class="row align-self-center justify-content-center">
+            <!-- Alertas de error (mensajeError) o de exito (mensajeExito)  -->
+            <div class="alert alert-danger" *ngIf="mensajeError" role="alert">
+              {{ mensajeError }}
+            </div>
+            <div class="alert alert-success" *ngIf="mensajeExito" role="alert">
+              {{ mensajeExito }}
+            </div>
+            <!-- ./alertas -->
+
             <div class="col-4 me-5">
               <!-- alineado vertical y horizontalmente, un placeholder de 250x250 y debajo un boton de cambiar imagen:
                 - Imagen

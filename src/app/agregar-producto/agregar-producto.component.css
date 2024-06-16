@@ -4,11 +4,17 @@
 }
 
 .page-link:hover {
-  background-color: #f8f9fa;
+  background-color: #5A1236;
+  color: #f8f9fa;
 }
 
 .page-item.active .page-link {
   background-color: #5A1236;
   color: #f8f9fa;
   border-color: #5A1236;
+}
+
+.puntos {
+  /* son los puntos suspensivos, no se pueden clickear, copiar ni seleccionar */
+  pointer-events: none;
 }
