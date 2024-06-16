@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule, NgClass, NgForOf } from "@angular/common";
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ProductosService } from "./productos.service";
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 @Component({
   selector: 'app-agregar-producto',
@@ -12,21 +12,36 @@ import { FormsModule } from "@angular/forms";
     NgxPaginationModule,
     NgClass,
     FormsModule,
-    CommonModule
+    CommonModule,
+    ReactiveFormsModule
   ],
   templateUrl: './agregar-producto.component.html',
   styleUrls: ['./agregar-producto.component.css']
 })
 export class AgregarProductoComponent implements OnInit {
+  formulario: any;
 
-  constructor(private productosService: ProductosService) {}
+  constructor(private productosService: ProductosService) { }
+  // variables para la paginacion
+  protected readonly Math = Math;
+  productos: any = [];
+  page: number = 1;
+  itemsPerPage: number = 5;
 
+  // variables para el formulario
   mensajeExito: string = "";
   mensajeError: string = "";
   respuesta: any;
-  productos: any = [];
-  page: number = 1;
-  protected readonly Math = Math;
+
+  // variables para el producto seleccionado
+  productoSeleccionado: any = {};
+  nombreIntroducido = "";
+  precioIntroducido = 0;
+  cantidadIntroducida = 0;
+  recomendacionIntroducida = '';
+  imagenIntroducida: any = "../../assets/img/foto_default.png";
+  categoriaIntroducida = "";
+  visibleIntroducido = false;
 
   ngOnInit() {
     this.productosService.getProductos().subscribe((data: any) => {
@@ -40,28 +55,67 @@ export class AgregarProductoComponent implements OnInit {
     });
   }
 
-  onAgregarProducto(producto: any) {
-    producto.visible = true;
+  cargarProducto(producto: any) {
     console.log(producto);
+    this.nombreIntroducido = producto.nombre;
+    this.precioIntroducido = producto.precio;
+    this.cantidadIntroducida = producto.cantidad;
+    this.recomendacionIntroducida = producto.recomendacion;
+    this.imagenIntroducida = producto.imagen;
+    this.categoriaIntroducida = producto.categoria;
+    this.visibleIntroducido = producto.visible;
+  }
 
-    this.productosService.agregarProducto(producto).subscribe({
-      next: (res: any) => {
-        console.log(res);
-        if (res.estado === 1) {
-          this.mensajeExito = "Producto agregado correctamente";
-          this.productos.push(producto);
-        } else {
-          this.mensajeError = "Error al agregar producto";
+  eliminarProducto(producto: any) { }
+
+
+  seleccionarImagen() {
+    // Seleccionar imagen del producto desde la computadora
+    // Mostrarla en el formulario
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'image/*';
+    input.click();
+    input.onchange = (event: any) => {
+      const file = event.target.files[0];
+      const reader = new FileReader();
+      reader.onload = e => {
+        if (e && e.target) {
+          this.imagenIntroducida = e.target.result;
         }
-      },
-      error: (error: any) => {
-        console.log(error);
-        this.mensajeError = "Error al agregar producto";
+      };
+      reader.readAsDataURL(file);
+    };
+  }
+
+  guardarProducto() {
+    // Guardar el producto en la base de datos
+    // Actualizar la lista de productos
+    this.productosService.agregarProducto({
+      nombre: this.nombreIntroducido,
+      precio: this.precioIntroducido,
+      cantidad: this.cantidadIntroducida,
+      recomendacion: this.recomendacionIntroducida,
+      imagen: this.imagenIntroducida,
+      categoria: this.categoriaIntroducida,
+      visible: true
+    }).subscribe((data: any) => {
+      this.respuesta = data;
+      if (this.respuesta.status === 200) {
+        this.mensajeExito = this.respuesta.mensaje;
+      } else {
+        this.mensajeError = this.respuesta.mensaje;
       }
     });
+
   }
 
-  onEditarProducto(producto: any) {
-    console.log(producto);
+
+  cambiarImagen($event: Event) {
+    throw new Error('Method not implemented.');
   }
+  onFileSelected($event: Event) {
+    throw new Error('Method not implemented.');
+  }
+
 }
