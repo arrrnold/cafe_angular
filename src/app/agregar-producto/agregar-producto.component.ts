@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 import { CommonModule, NgClass, NgForOf } from "@angular/common";
-import { NgxPaginationModule } from 'ngx-pagination';
+import { NgxPaginationModule } from "ngx-pagination";
 import { ProductosService } from "./productos.service";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { buffer } from 'rxjs';
+import { buffer } from "rxjs";
 
 @Component({
-  selector: 'app-agregar-producto',
+  selector: "app-agregar-producto",
   standalone: true,
   imports: [
     NgForOf,
@@ -16,8 +16,8 @@ import { buffer } from 'rxjs';
     CommonModule,
     ReactiveFormsModule
   ],
-  templateUrl: './agregar-producto.component.html',
-  styleUrls: ['./agregar-producto.component.css']
+  templateUrl: "./agregar-producto.component.html",
+  styleUrls: ["./agregar-producto.component.css"]
 })
 export class AgregarProductoComponent implements OnInit {
   formulario: any;
@@ -36,10 +36,11 @@ export class AgregarProductoComponent implements OnInit {
 
   // variables para el producto seleccionado
   productoSeleccionado: any = {};
+  idProducto = "";
   nombreIntroducido = "";
   precioIntroducido = 0;
   cantidadIntroducida = 0;
-  recomendacionIntroducida = '';
+  recomendacionIntroducida = "";
   imagenIntroducida: any = "../../assets/img/foto_default.png";
   categoriaIntroducida = "";
   visibleIntroducido = false;
@@ -60,7 +61,9 @@ export class AgregarProductoComponent implements OnInit {
   }
 
   cargarProducto(producto: any) {
+
     console.log(producto);
+    this.idProducto = producto.id;
     this.nombreIntroducido = producto.nombre;
     this.precioIntroducido = producto.precio;
     this.cantidadIntroducida = producto.cantidad;
@@ -71,7 +74,6 @@ export class AgregarProductoComponent implements OnInit {
   }
 
   eliminarProducto(producto: any) { }
-
 
   seleccionarImagen(event: any) {
     if (event.target.files && event.target.files[0]) {
@@ -89,7 +91,7 @@ export class AgregarProductoComponent implements OnInit {
       nombre: this.nombreIntroducido,
       precio: this.precioIntroducido,
       cantidad: this.cantidadIntroducida,
-      recomendacion: this.recomendacionIntroducida,
+      recomendacion: this.recomendacionIntroducida, // recomendacion es un string, no un booleano
       categoria: this.categoriaIntroducida,
       visible: true,
       imagen: this.imagenArchivo
@@ -114,14 +116,62 @@ export class AgregarProductoComponent implements OnInit {
       visible: true,
       imagen: this.imagenIntroducida
     });
-    
+
+    // los mensajes duran solo 2 segundos
+    setTimeout(() => {
+      this.mensajeExito = "";
+      this.mensajeError = "";
+    }, 2000);
+  }
+
+  // actualizar producto
+  actualizarProducto() {
+    const productoActualizado = {
+      id: this.idProducto,
+      nombre: this.nombreIntroducido,
+      precio: this.precioIntroducido,
+      cantidad: this.cantidadIntroducida,
+      categoria: this.categoriaIntroducida,
+      visible: this.visibleIntroducido,
+      recomendacion: this.recomendacionIntroducida,
+      imagen: this.imagenArchivo
+    };
+
+    this.productosService.actualizarProducto(productoActualizado).subscribe(
+      (data: any) => {
+        this.mensajeExito = data.mensaje;
+        // Actualizar el producto en el array local si es necesario
+        const index = this.productos.findIndex((p: any) => p.id === this.idProducto);
+        if (index !== -1) {
+          this.productos[index] = { ...productoActualizado, imagen: this.imagenIntroducida };
+        }
+      },
+      (error: any) => {
+        this.mensajeError = error.error.mensaje;
+      }
+    );
+
+    // Actualizar el producto en el array local si es necesario
+    const index = this.productos.findIndex((p: any) => p.id === this.idProducto);
+    if (index !== -1) {
+      this.productos[index] = { ...productoActualizado, imagen: this.imagenIntroducida }; // 
+    } else {
+      console.log("No se encontró el producto en el array");
+    }
+
+    // los mensajes duran solo 2 segundos
+    setTimeout(() => {
+      this.mensajeExito = "";
+      this.mensajeError = "";
+    }, 2000);
+
   }
 
   limpiarFormulario() {
     this.nombreIntroducido = "";
     this.precioIntroducido = 0;
     this.cantidadIntroducida = 0;
-    this.recomendacionIntroducida = '';
+    this.recomendacionIntroducida = "";
     this.imagenIntroducida = "../../assets/img/foto_default.png";
     this.categoriaIntroducida = "";
     this.visibleIntroducido = false;
@@ -129,10 +179,9 @@ export class AgregarProductoComponent implements OnInit {
   }
 
   cambiarImagen($event: Event) {
-    throw new Error('Method not implemented.');
+    throw new Error("Method not implemented.");
   }
   onFileSelected($event: Event) {
-    throw new Error('Method not implemented.');
+    throw new Error("Method not implemented.");
   }
-
 }

@@ -6,8 +6,9 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class AuthService {
-  apiUrl = 'https://api-tt2-ktkr.onrender.com/v1/registro/'; // URL del módulo de auth
-
+  
+  apiUrl = 'https://api-tt2-ktkr.onrender.com/v1/registro/'; // URL del módulo de registro en la nube
+  // apiUrl = 'http://localhost:3000/v1/registro/'; // URL del módulo de registro local
   constructor(private http: HttpClient) { }
 
   login(value: any) {
