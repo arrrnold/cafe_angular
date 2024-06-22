@@ -7,8 +7,8 @@ import { Observable } from 'rxjs';
 })
 export class ProductosService {
 
-  apiUrl = 'https://api-tt2-ktkr.onrender.com/v1/producto/'; // URL del módulo de productos en la nube
-  // apiUrl = 'http://localhost:3000/v1/producto/'; // URL del módulo de productos local
+  // apiUrl = 'https://api-tt2-ktkr.onrender.com/v1/producto/'; // URL del módulo de productos en la nube
+  apiUrl = 'http://localhost:3000/v1/producto/'; // URL del módulo de productos local
 
   constructor(private http: HttpClient) { }
 
@@ -53,5 +53,11 @@ export class ProductosService {
   // Método para obtener un producto por su id
   getProducto(id: string): Observable<any> {
     return this.http.get(this.apiUrl + id);
+  }
+
+  // Metodo para cambiar visibilidad del producto (visible o no visible)
+  cambiarVisibilidadProducto(id: string, visible: boolean): Observable<any> {
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+    return this.http.put(this.apiUrl + 'visible/' + id, { visible }, { headers });
   }
 }

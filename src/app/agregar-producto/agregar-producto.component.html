@@ -69,13 +69,11 @@
 		<div class="col py-3">
 
 
-
 			<div class="row">
 				<div class="col-lg-auto d-flex justify-content-between w-100 mb-4">
 					<h4>Agregar Producto</h4>
 					<button class="btn btn-primary" data-bs-target="#crearModal" data-bs-toggle="modal"
-						style="background-color: #5A1236; color: white; border:#5A1236"
-						style="background-color: #5A1236; border-color: #5A1236" type="button">
+						style="background-color: #5A1236; color: white; border:#5A1236" (click)="limpiarFormulario()" type="button">
 						Agregar nuevo producto
 					</button>
 				</div>
@@ -111,8 +109,9 @@
 											data-bs-target="#editarModal" data-bs-toggle="modal" type="button">
 											Editar
 										</button>
-										<button (click)="eliminarProducto(producto)" class="btn btn-danger"
-											style="background-color: #5A1236; color: white; border:#5A1236" type="button">
+										<button (click)="cargarProducto(producto)" class="btn btn-danger"
+											style="background-color: #5A1236; color: white; border:#5A1236" data-bs-target="#eliminarModal"
+											data-bs-toggle="modal" type="button">
 											Eliminar
 										</button>
 									</td>
@@ -238,83 +237,106 @@
 
 
 	<!-- Modal xl de Editar -->
-<div class="modal fade" aria-hidden="true" aria-labelledby="editarModalLabel" id="editarModal" tabindex="-1">
-	<div class="modal-dialog modal-xl">
-		<div class="modal-content">
-			<div class="modal-header" style="background-color: #5A1236; color: white;">
-				<h5 class="modal-title" id="editarModalLabel">Editar Producto</h5>
-				<button aria-label="Close" class="btn-close bg-white" data-bs-dismiss="modal" type="button"></button>
-			</div>
-			<div class="modal-body d-flex justify-content-center">
-				<div class="row align-self-center justify-content-center">
-					<div class="alert alert-danger" *ngIf="mensajeError" role="alert">
-						{{ mensajeError }}
-					</div>
-					<div class="alert alert-success" *ngIf="mensajeExito" role="alert">
-						{{ mensajeExito }}
-					</div>
-					<div class="col-4 me-5">
-						<div class="d-flex justify-content-center align-items-center">
-							<img [src]="imagenIntroducida" alt="imagen" style="width: 250px; height: 250px;">
+	<div class="modal fade" aria-hidden="true" aria-labelledby="editarModalLabel" id="editarModal" tabindex="-1">
+		<div class="modal-dialog modal-xl">
+			<div class="modal-content">
+				<div class="modal-header" style="background-color: #5A1236; color: white;">
+					<h5 class="modal-title" id="editarModalLabel">Editar Producto</h5>
+					<button aria-label="Close" class="btn-close bg-white" data-bs-dismiss="modal" type="button"></button>
+				</div>
+				<div class="modal-body d-flex justify-content-center">
+					<div class="row align-self-center justify-content-center">
+						<div class="alert alert-danger" *ngIf="mensajeError" role="alert">
+							{{ mensajeError }}
 						</div>
-						<div class="d-flex justify-content-center align-items-center mt-3">
-							<input type="file" (change)="seleccionarImagen($event)" class="form-control" accept="image/*">
+						<div class="alert alert-success" *ngIf="mensajeExito" role="alert">
+							{{ mensajeExito }}
 						</div>
-					</div>
-					<div class="col-6 justify-content-start align-items-start d-grid">
-						<form>
-							<div class="mb-3">
-								<label class="form-label" for="nombre">Nombre</label>
-								<input [(ngModel)]="nombreIntroducido" [ngModelOptions]="{standalone:true}" class="form-control"
-									id="nombre" placeholder="Nombre del producto" type="text">
+						<div class="col-4 me-5">
+							<div class="d-flex justify-content-center align-items-center">
+								<img [src]="imagenIntroducida" alt="imagen" style="width: 250px; height: 250px;">
 							</div>
-							<div class="d-flex justify-content-between">
-								<div class="mb-3 me-3">
-									<label class="form-label" for="precio">Precio</label>
-									<input [(ngModel)]="precioIntroducido" [ngModelOptions]="{standalone:true}" class="form-control"
-										id="precio" placeholder="Precio del producto" type="number">
+							<div class="d-flex justify-content-center align-items-center mt-3">
+								<input type="file" (change)="seleccionarImagen($event)" class="form-control" accept="image/*">
+							</div>
+						</div>
+						<div class="col-6 justify-content-start align-items-start d-grid">
+							<form>
+								<div class="mb-3">
+									<label class="form-label" for="nombre">Nombre</label>
+									<input [(ngModel)]="nombreIntroducido" [ngModelOptions]="{standalone:true}" class="form-control"
+										id="nombre" placeholder="Nombre del producto" type="text">
+								</div>
+								<div class="d-flex justify-content-between">
+									<div class="mb-3 me-3">
+										<label class="form-label" for="precio">Precio</label>
+										<input [(ngModel)]="precioIntroducido" [ngModelOptions]="{standalone:true}" class="form-control"
+											id="precio" placeholder="Precio del producto" type="number">
+									</div>
+									<div class="mb-3">
+										<label class="form-label" for="cantidad">Cantidad</label>
+										<input [(ngModel)]="cantidadIntroducida" [ngModelOptions]="{standalone:true}" class="form-control"
+											id="cantidad" placeholder="Cantidad del producto" type="number">
+									</div>
 								</div>
 								<div class="mb-3">
-									<label class="form-label" for="cantidad">Cantidad</label>
-									<input [(ngModel)]="cantidadIntroducida" [ngModelOptions]="{standalone:true}" class="form-control"
-										id="cantidad" placeholder="Cantidad del producto" type="number">
-								</div>
-							</div>
-							<div class="mb-3">
-								<label class="form-label
+									<label class="form-label
 									" for="recomendacion">Recomendación</label>
-								<select [(ngModel)]="recomendacionIntroducida" [ngModelOptions]="{standalone:true}"
-									class="form-select" id="recomendacion">
-									<option value="" selected>Selecciona una recomendación</option>
-									<option value="Sí">Sí</option>
-									<option value="No">No</option>
-								</select>
-							</div>
+									<select [(ngModel)]="recomendacionIntroducida" [ngModelOptions]="{standalone:true}"
+										class="form-select" id="recomendacion">
+										<option value="" selected>Selecciona una recomendación</option>
+										<option value="Sí">Sí</option>
+										<option value="No">No</option>
+									</select>
+								</div>
 
-							<div class="mb-3">
-								<label class="form-label" for="categoria">Categoria</label>
-								<select [(ngModel)]="categoriaIntroducida" [ngModelOptions]="{standalone:true}" class="form-select"
-									id="categoria">
-									<option value="" selected>Selecciona una categoria</option>
-									<option value="Bebidas abiertas">Bebidas abiertas</option>
-									<option value="Bebidas cerradas">Bebidas cerradas</option>
-									<option value="Alimentos">Alimentos</option>
-								</select>
-							</div>
-						</form>
+								<div class="mb-3">
+									<label class="form-label" for="categoria">Categoria</label>
+									<select [(ngModel)]="categoriaIntroducida" [ngModelOptions]="{standalone:true}" class="form-select"
+										id="categoria">
+										<option value="" selected>Selecciona una categoria</option>
+										<option value="Bebidas abiertas">Bebidas abiertas</option>
+										<option value="Bebidas cerradas">Bebidas cerradas</option>
+										<option value="Alimentos">Alimentos</option>
+									</select>
+								</div>
+							</form>
+						</div>
 					</div>
 				</div>
-			</div>
-			<div class="modal-footer">
-				<button class="btn bg-white border-black" data-bs-dismiss="modal" type="button">Cancelar</button>
-				<button (click)="actualizarProducto()" class="btn btn-primary"
-					style="background-color: #5A1236; color: white; border:#5A1236" type="button">
-					Actualizar
-				</button>
+				<div class="modal-footer">
+					<button class="btn bg-white border-black" data-bs-dismiss="modal" type="button">Cancelar</button>
+					<button (click)="actualizarProducto()" class="btn btn-primary"
+						style="background-color: #5A1236; color: white; border:#5A1236" type="button">
+						Actualizar
+					</button>
+				</div>
 			</div>
 		</div>
-	</div>
-</div> <!-- ./modal fade -->
+	</div> <!-- ./modal fade -->
 
-</div>
-<!-- ./container-fluid -->
+	<!-- Modal pequeño de "Eliminar" -->
+	<div class="modal fade" aria-hidden="true" aria-labelledby="eliminarModalLabel" id="eliminarModal" tabindex="-1">
+		<div class="modal-dialog modal-sm">
+			<div class="modal-content">
+				<div class="modal-header" style="background-color: #5A1236; color: white;">
+					<h5 class="modal-title" id="eliminarModalLabel">Eliminar Producto</h5>
+					<button aria-label="Close" class="btn-close bg-white" data-bs-dismiss="modal" type="button"></button>
+				</div>
+				<div class="modal-body">
+					<p>¿Estás seguro de que deseas eliminar este producto?</p>
+				</div>
+				<div class="modal-footer">
+					<button class="btn bg-white border-black" data-bs-dismiss="modal" type="button">Cancelar</button>
+					<!--  cuando se pulse el btn Eliminar, borrar el producto y dismiss el modal -->
+					<button (click)="cambiarVisibilidad()" class="btn btn-danger"   data-bs-dismiss="modal"
+						style="background-color: #5A1236; color: white; border:#5A1236" type="button">
+						Eliminar
+					</button>
+				</div>
+			</div>
+		</div>
+
+
+	</div>
+	<!-- ./container-fluid -->

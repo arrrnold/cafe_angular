@@ -23,6 +23,7 @@ export class AgregarProductoComponent implements OnInit {
   formulario: any;
 
   constructor(private productosService: ProductosService) { }
+
   // variables para la paginacion
   protected readonly Math = Math;
   productos: any = [];
@@ -50,13 +51,8 @@ export class AgregarProductoComponent implements OnInit {
   ngOnInit() {
 
     this.productosService.getProductos().subscribe((data: any) => {
-      this.respuesta = data;
-      this.productos = this.respuesta.productos;
-
-      this.productos.forEach((producto: any) => {
-        producto.visible = false;
-        producto.recomendacion = producto.recomendacion ? "Sí" : "No";
-      });
+      // si los productos de la respuesta tienen visible en true, los agregamos al array de productos
+      this.productos = data.productos.filter((p: any) => p.visible);
     });
   }
 
@@ -70,10 +66,36 @@ export class AgregarProductoComponent implements OnInit {
     this.recomendacionIntroducida = producto.recomendacion;
     this.imagenIntroducida = producto.imagen;
     this.categoriaIntroducida = producto.categoria;
-    this.visibleIntroducido = producto.visible;
+    this.visibleIntroducido = true;
   }
 
-  eliminarProducto(producto: any) { }
+
+  cambiarVisibilidad() {
+    this.productosService.cambiarVisibilidadProducto(this.idProducto, this.visibleIntroducido).subscribe(
+      (data: any) => {
+        this.mensajeExito = "Producto eliminado con éxito";
+      },
+      (error: any) => {
+        this.mensajeError = "Error al eliminar el producto";
+      }
+    );
+
+    // slice para eliminar el producto del array de productos
+    this.productos = this.productos.filter((p: any) => p.id !== this.idProducto);
+
+    // los mensajes duran solo 2 segundos
+    setTimeout(() => {
+      this.mensajeExito = "";
+      this.mensajeError = "";
+    }, 2000);
+
+    this.limpiarFormulario();
+
+    /*
+      que ocurra lo mismo que si yo hiciera clic en 
+      <button aria-label="Close" class="btn-close bg-white" data-bs-dismiss="modal" type="button"></button>
+    */
+  }
 
   seleccionarImagen(event: any) {
     if (event.target.files && event.target.files[0]) {
@@ -85,8 +107,8 @@ export class AgregarProductoComponent implements OnInit {
       reader.readAsDataURL(event.target.files[0]);
     }
   }
-
   guardarProducto() {
+    
     const nuevoProducto = {
       nombre: this.nombreIntroducido,
       precio: this.precioIntroducido,
@@ -132,7 +154,7 @@ export class AgregarProductoComponent implements OnInit {
       precio: this.precioIntroducido,
       cantidad: this.cantidadIntroducida,
       categoria: this.categoriaIntroducida,
-      visible: this.visibleIntroducido,
+      visible: true,
       recomendacion: this.recomendacionIntroducida,
       imagen: this.imagenArchivo
     };
@@ -140,11 +162,6 @@ export class AgregarProductoComponent implements OnInit {
     this.productosService.actualizarProducto(productoActualizado).subscribe(
       (data: any) => {
         this.mensajeExito = data.mensaje;
-        // Actualizar el producto en el array local si es necesario
-        const index = this.productos.findIndex((p: any) => p.id === this.idProducto);
-        if (index !== -1) {
-          this.productos[index] = { ...productoActualizado, imagen: this.imagenIntroducida };
-        }
       },
       (error: any) => {
         this.mensajeError = error.error.mensaje;
@@ -176,6 +193,9 @@ export class AgregarProductoComponent implements OnInit {
     this.categoriaIntroducida = "";
     this.visibleIntroducido = false;
     this.imagenArchivo = null;
+    this.mensajeExito = "";
+    this.mensajeError = "";
+
   }
 
   cambiarImagen($event: Event) {
