@@ -95,10 +95,11 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr *ngFor="let producto of productos | paginate: { itemsPerPage: itemsPerPage, currentPage: page }">
+								<tr *ngFor="let producto of productos | paginate: { itemsPerPage: itemsPerPage, currentPage: page }"
+									class="align-content-center ">
 									<!-- TODO provisional -->
-									<td><img [src]="producto.imagen" alt="imagen" style="width: 50px; height: 50px;">
-									</td>
+									<!--  imagen que viene de multer -->
+									<td><img [src]="producto.imagen" alt="imagen" style="width: 100px; height: 100px;"></td>
 									<td>{{ producto.nombre }}</td>
 									<td>{{ producto.precio }}</td>
 									<td>{{ producto.cantidad }}</td>
@@ -158,7 +159,7 @@
 	<!-- ./contenido principal -->
 	<!-- Modal xl de Editar -->
 	<!-- Modal xl Crear -->
-	<div aria-hidden="true" aria-labelledby="crearModalLabel" class="modal fade" id="crearModal" tabindex="-1">
+	<div class="modal fade" aria-hidden="true" aria-labelledby="crearModalLabel" id="crearModal" tabindex="-1">
 		<div class="modal-dialog modal-xl">
 			<div class="modal-content">
 				<div class="modal-header" style="background-color: #5A1236; color: white;">
@@ -166,60 +167,22 @@
 					<button aria-label="Close" class="btn-close bg-white" data-bs-dismiss="modal" type="button"></button>
 				</div>
 				<div class="modal-body d-flex justify-content-center">
-					<!-- 2 columnas, la izquierda de 25% y la derecha de 75%, alineado vertical y horizontalmente -->
 					<div class="row align-self-center justify-content-center">
-						<!-- Alertas de error (mensajeError) o de exito (mensajeExito)  -->
 						<div class="alert alert-danger" *ngIf="mensajeError" role="alert">
 							{{ mensajeError }}
 						</div>
 						<div class="alert alert-success" *ngIf="mensajeExito" role="alert">
 							{{ mensajeExito }}
 						</div>
-						<!-- ./alertas -->
-
 						<div class="col-4 me-5">
-							<!-- alineado vertical y horizontalmente, un placeholder de 250x250 y debajo un boton de cambiar imagen:
-								- Imagen
-								- Boton de cambiar imagen
-									1. El boton llama a un event para seleccionar una imagen del dispositivo
-									1.1 Cuando se selecciona la imagen se carga en el placeholder
-									1.2 Se guarda la imagen en una variable
-									1.3 Se guarda la imagen en el servidor
-									2. El boton muestra un mensaje de exito o error
-							-->
-							<!-- Alineado -->
 							<div class="d-flex justify-content-center align-items-center">
-								<!-- Placeholder -->
 								<img [src]="imagenIntroducida" alt="imagen" style="width: 250px; height: 250px;">
-								<!-- Boton de cambiar imagen para seleccionar un archivo del equipo -->
 							</div>
-							<!-- Boton de cambiar imagen -->
 							<div class="d-flex justify-content-center align-items-center mt-3">
-								<button (click)="seleccionarImagen()" class="btn btn-primary"
-									style="background-color: #5A1236; color: white; border:#5A1236" type="button">
-									Agregar imagen
-								</button>
+								<input type="file" (change)="seleccionarImagen($event)" class="form-control" accept="image/*">
 							</div>
 						</div>
 						<div class="col-6 justify-content-start align-items-start d-grid">
-							<!-- el formulario de dar de alta un producto:
-		- Nombre
-		- Precio
-				Es un numero
-		- Cantidad
-				Es un numero
-		- Recomendación
-				Si
-				No
-		- Categoria
-				Bebidas abiertas
-				Bebidas cerradas
-				Alimentos
-		- Imagen
-				Un selector de imagenes
-		- Boton de guardar (se desactiva cuando hay campos vacios y se activa cuando todos estan)
-		- Boton de cancelar
-		-->
 							<form>
 								<div class="mb-3">
 									<label class="form-label" for="nombre">Nombre</label>
@@ -270,10 +233,9 @@
 					</button>
 				</div>
 			</div>
-			<!-- ./modal -->
 		</div>
-		<!-- ./modal-dialog -->
 	</div>
+
 	<!-- ./modal fade -->
 </div>
 <!-- ./container-fluid -->

@@ -3,6 +3,7 @@ import { CommonModule, NgClass, NgForOf } from "@angular/common";
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ProductosService } from "./productos.service";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { buffer } from 'rxjs';
 
 @Component({
   selector: 'app-agregar-producto',
@@ -42,8 +43,11 @@ export class AgregarProductoComponent implements OnInit {
   imagenIntroducida: any = "../../assets/img/foto_default.png";
   categoriaIntroducida = "";
   visibleIntroducido = false;
+  imagenArchivo: File | null = null;
+
 
   ngOnInit() {
+
     this.productosService.getProductos().subscribe((data: any) => {
       this.respuesta = data;
       this.productos = this.respuesta.productos;
@@ -69,66 +73,60 @@ export class AgregarProductoComponent implements OnInit {
   eliminarProducto(producto: any) { }
 
 
-  seleccionarImagen() {
-    // Seleccionar imagen del producto desde la computadora
-    // Mostrarla en el formulario
-    const input = document.createElement('input');
-    input.type = 'file';
-    input.accept = 'image/*';
-    input.click();
-    input.onchange = (event: any) => {
-      const file = event.target.files[0];
+  seleccionarImagen(event: any) {
+    if (event.target.files && event.target.files[0]) {
       const reader = new FileReader();
-      reader.onload = e => {
-        if (e && e.target) {
-          this.imagenIntroducida = e.target.result;
-        }
+      this.imagenArchivo = event.target.files[0];
+      reader.onload = (e: any) => {
+        this.imagenIntroducida = e.target.result;
       };
-      reader.readAsDataURL(file);
-    };
+      reader.readAsDataURL(event.target.files[0]);
+    }
   }
 
   guardarProducto() {
-    // Guardar el producto en la base de datos
-    // Actualizar la lista de productos
-    this.productosService.agregarProducto({
+    const nuevoProducto = {
       nombre: this.nombreIntroducido,
       precio: this.precioIntroducido,
       cantidad: this.cantidadIntroducida,
       recomendacion: this.recomendacionIntroducida,
-      imagen: this.imagenIntroducida,
       categoria: this.categoriaIntroducida,
-      visible: true
-    }).subscribe((data: any) => {
-      this.respuesta = data;
-      console.log(this.respuesta);
-      if (this.respuesta.estado === 1) {
-        this.mensajeExito = this.respuesta.mensaje;
+      visible: true,
+      imagen: this.imagenArchivo
+    };
 
-        // Actualizar la lista de productos
-        this.productosService.getProductos().subscribe((data: any) => {
-          this.respuesta = data;
-          this.productos = this.respuesta.productos;
-
-          this.productos.forEach((producto: any) => {
-            producto.visible = false;
-            producto.recomendacion = producto.recomendacion ? "Sí" : "No";
-          });
-        });
-
-        // Borrar el mensaje despues de 5 segundos
-        setTimeout(() => {
-          this.mensajeExito = "";
-        }, 5000);
-
-        
-      } else {
-        this.mensajeError = this.respuesta.mensaje;
+    this.productosService.agregarProducto(nuevoProducto).subscribe(
+      (data: any) => {
+        this.mensajeExito = data.mensaje;
+      },
+      (error: any) => {
+        this.mensajeError = error.error.mensaje;
       }
-    });
+    );
 
+    // actualizar el array de productos con el nuevo producto (la imagen no se guarda en la base de datos, solo el nombre del archivo)
+    this.productos.push({
+      nombre: this.nombreIntroducido,
+      precio: this.precioIntroducido,
+      cantidad: this.cantidadIntroducida,
+      recomendacion: this.recomendacionIntroducida,
+      categoria: this.categoriaIntroducida,
+      visible: true,
+      imagen: this.imagenIntroducida
+    });
+    
   }
 
+  limpiarFormulario() {
+    this.nombreIntroducido = "";
+    this.precioIntroducido = 0;
+    this.cantidadIntroducida = 0;
+    this.recomendacionIntroducida = '';
+    this.imagenIntroducida = "../../assets/img/foto_default.png";
+    this.categoriaIntroducida = "";
+    this.visibleIntroducido = false;
+    this.imagenArchivo = null;
+  }
 
   cambiarImagen($event: Event) {
     throw new Error('Method not implemented.');
