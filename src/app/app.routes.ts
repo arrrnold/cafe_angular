@@ -26,8 +26,8 @@ export const routes: Routes = [
     */
     { path: '', redirectTo: '/auth/login', pathMatch: 'full' }, // Redirigir a /auth/login por defecto
     { path: 'auth/login', component: LoginComponent, canActivate: [AlreadyLoggedInGuard] },
-    { path: 'auth/reset-password', component: ResetPasswordComponent },
-    { path: 'auth/send-mail', component: SendMailComponent },
+    { path: 'auth/reset_password', component: ResetPasswordComponent },
+    { path: 'auth/send_mail', component: SendMailComponent },
     { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
     { path: 'pedidos', component: PedidosComponent, canActivate: [AuthGuard] },
     { path: 'agregar_producto', component: AgregarProductoComponent, canActivate: [AuthGuard] },
