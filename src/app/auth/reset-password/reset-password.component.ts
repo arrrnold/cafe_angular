@@ -42,7 +42,7 @@ export class ResetPasswordComponent implements OnInit {
         },
         error: (err: any) => {
           console.log('error al cambiar la contraseña');
-          this.resetError = 'Error restablecer la contraseña. Verifica los campos e inténtalo de nuevo.';
+          this.resetError = 'Error al restablecer la contraseña. Verifica los campos e inténtalo de nuevo.';
         }
       });
   }
