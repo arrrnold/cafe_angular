@@ -153,7 +153,7 @@ export class AgregarProductoComponent implements OnInit {
   actualizarProducto() {
 
     const productoActualizado = {
-      id: this.idProducto,
+      id: this.idProducto || this.productoSeleccionado.id,
       nombre: this.nombreIntroducido,
       precio: this.precioIntroducido,
       cantidad: this.cantidadIntroducida,
