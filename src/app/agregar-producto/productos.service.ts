@@ -34,6 +34,8 @@ export class ProductosService {
   // Método para actualizar un producto
   actualizarProducto(producto: any): Observable<any> {
     const formData = new FormData();
+    console.log(producto);
+    
     formData.append('nombre', producto.nombre);
     formData.append('precio', producto.precio);
     formData.append('cantidad', producto.cantidad);

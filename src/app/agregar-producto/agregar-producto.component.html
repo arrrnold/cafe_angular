@@ -226,7 +226,7 @@
 				<div class="modal-footer">
 					<button class="btn bg-white border-black" data-bs-dismiss="modal" type="button">Cancelar</button>
 					<button (click)="guardarProducto()"
-						[disabled]="!nombreIntroducido || precioIntroducido < 0 || cantidadIntroducida < 0 || !recomendacionIntroducida || !categoriaIntroducida"
+						[disabled]="!nombreIntroducido || precioIntroducido < 0 || cantidadIntroducida < 0 || !recomendacionIntroducida || !categoriaIntroducida || imagenIntroducida == '../../assets/img/foto_default.png' || !imagenIntroducida"
 						class="btn btn-primary" style="background-color: #5A1236; color: white; border:#5A1236" type="button">
 						Guardar
 					</button>

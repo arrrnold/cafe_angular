@@ -107,8 +107,9 @@ export class AgregarProductoComponent implements OnInit {
       reader.readAsDataURL(event.target.files[0]);
     }
   }
+
   guardarProducto() {
-    
+
     const nuevoProducto = {
       nombre: this.nombreIntroducido,
       precio: this.precioIntroducido,
@@ -119,6 +120,8 @@ export class AgregarProductoComponent implements OnInit {
       imagen: this.imagenArchivo
     };
 
+    console.log(nuevoProducto);
+    
     this.productosService.agregarProducto(nuevoProducto).subscribe(
       (data: any) => {
         this.mensajeExito = data.mensaje;
@@ -148,6 +151,7 @@ export class AgregarProductoComponent implements OnInit {
 
   // actualizar producto
   actualizarProducto() {
+
     const productoActualizado = {
       id: this.idProducto,
       nombre: this.nombreIntroducido,
@@ -159,29 +163,41 @@ export class AgregarProductoComponent implements OnInit {
       imagen: this.imagenArchivo
     };
 
+    console.log(productoActualizado);
+
     this.productosService.actualizarProducto(productoActualizado).subscribe(
       (data: any) => {
-        this.mensajeExito = data.mensaje;
+        this.mensajeExito = data.mensaje; 
+        
+        // actualizar el array de productos con el producto actualizado (la imagen no se guarda en la base de datos, solo el nombre del archivo)
+        this.productos = this.productos.map((p: any) => {
+          if (p.id === this.idProducto) {
+            return {
+              id: this.idProducto,
+              nombre: this.nombreIntroducido,
+              precio: this.precioIntroducido,
+              cantidad: this.cantidadIntroducida,
+              categoria: this.categoriaIntroducida,
+              visible: true,
+              recomendacion: this.recomendacionIntroducida,
+              imagen: this.imagenIntroducida
+            };
+          }
+          return p;
+        });
+    
       },
       (error: any) => {
         this.mensajeError = error.error.mensaje;
       }
     );
 
-    // Actualizar el producto en el array local si es necesario
-    const index = this.productos.findIndex((p: any) => p.id === this.idProducto);
-    if (index !== -1) {
-      this.productos[index] = { ...productoActualizado, imagen: this.imagenIntroducida }; // 
-    } else {
-      console.log("No se encontró el producto en el array");
-    }
-
+   
     // los mensajes duran solo 2 segundos
     setTimeout(() => {
       this.mensajeExito = "";
       this.mensajeError = "";
     }, 2000);
-
   }
 
   limpiarFormulario() {
