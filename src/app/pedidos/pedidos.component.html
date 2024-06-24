@@ -75,7 +75,7 @@
       </div>
 
       <!--        Tabla de pedidos en AngularJS-->
-      <table class="table">
+      <table class="table text-center ">
         <thead>
           <tr>
             <th>Imagen</th>
@@ -92,13 +92,13 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let pedido of pedidos | paginate: { itemsPerPage: itemsPerPage, currentPage: page }">
-            <td><img [src]="pedido.usuario.Usuario.imagen_perfil" alt="imagen" style="width: 100px; height: 100px;">
+          <tr class="justify-content-center align-items-center" *ngFor="let pedido of pedidos | paginate: { itemsPerPage: itemsPerPage, currentPage: page }">
+            <td ><img [src]="pedido.usuario.Usuario.imagen_perfil" alt="imagen" style="width: 100px; height: 100px;">
             </td>
             <td>{{ pedido.usuario.Usuario.nombre_completo }}</td>
             <td>
               <ul>
-                <li *ngFor="let producto of pedido.productos">{{ producto.cantidad }} x {{ producto.nombre }}</li>
+                <li class="text-start" *ngFor="let producto of pedido.productos">{{ producto.cantidad }} x {{ producto.nombre }}</li>
               </ul>
             </td>
             <td>{{ pedido.pedido.ubicacion }}</td>
@@ -110,7 +110,7 @@
             <td>{{ pedido.pedido.total }}</td>
             <td>
               <!-- Botones de accion -->
-              <button (click)="cargarPedido(pedido)" class="btn bg-white border-black me-xl-3 mb-sm-2"
+              <button (click)="cargarPedido(pedido)" class="btn bg-white border-black me-xl-3 mb-sm-1 mb-xl-0"
                 data-bs-target="#editarModal" data-bs-toggle="modal" type="button">
                 Editar estado
               </button>
