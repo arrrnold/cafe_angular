@@ -9,8 +9,10 @@ export class ProductosService {
 
   apiUrl = 'https://api-tt2-ktkr.onrender.com/v1/producto/'; // URL del módulo de productos en la nube
   apiUrlUsuarios = 'https://api-tt2-ktkr.onrender.com/v1/usuario/'; // URL del módulo de usuarios en la nube
+  apiUrlPedido = 'https://api-tt2-ktkr.onrender.com/v1/pedido/'; // URL del módulo de usuarios en la nube
   // apiUrl = 'http://localhost:3000/v1/producto/'; // URL del módulo de productos local
   // apiUrlUsuarios = 'http://localhost:3000/v1/usuario/'; // URL del módulo de usuarios local
+  // apiUrlPedido = 'http://localhost:3000/v1/pedido/'; // URL del módulo de usuarios
 
   constructor(private http: HttpClient) { }
 
@@ -73,4 +75,13 @@ export class ProductosService {
   getUsuarios(): Observable<any> {
     return this.http.get(this.apiUrlUsuarios);
   }
+
+  // Método para actualizar estado de un pedido
+  actualizarPedido(id: number, estado: string): Observable<any> {
+    // PUT http://localhost:3000/v1/pedido/1/actualizarEstado
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+    return this.http.put(this.apiUrlPedido + id + '/actualizarEstado', { estado }, { headers });
+  }
 }
+
+

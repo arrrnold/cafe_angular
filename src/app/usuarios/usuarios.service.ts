@@ -17,8 +17,6 @@ export class UsuariosService {
   }
 
   actualizarRol(usuario: any) {
-    console.log(usuario);
-    
     return this.http.put(this.apiUrl + "actualizarRol", usuario);
   }
 

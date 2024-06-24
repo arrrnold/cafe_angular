@@ -22,6 +22,8 @@ import { ProductosService } from '../agregar-producto/productos.service';
 })
 export class PedidosComponent implements OnInit {
 
+  estadoProductoSeleccionado: string = "";
+  idProductoSeleccionado: number = 0;
 
   cerrarSesion() {
     localStorage.removeItem('token');
@@ -30,7 +32,28 @@ export class PedidosComponent implements OnInit {
   }
 
   cargarPedido(pedido: any) {
-    console.log(pedido);
+    this.estadoProductoSeleccionado = pedido.pedido.estado;
+    this.idProductoSeleccionado = pedido.pedido.id;
+  }
+
+  cambiarEstado() {
+    this.productosService.actualizarPedido(this.idProductoSeleccionado, this.estadoProductoSeleccionado).subscribe((respuesta: any) => {
+      this.respuesta = respuesta;
+      if (this.respuesta.estado === 1) {
+        this.mensajeExito = "Estado actualizado con éxito";
+
+        // actualizar el estado en la lista de pedidos en el pedido seleccionado
+        this.pedidos = this.pedidos.map((p: any) => {
+          if (p.pedido.id === this.idProductoSeleccionado) {
+            p.pedido.estado = this.estadoProductoSeleccionado;
+          }
+          return p;
+        });
+
+      } else {
+        this.mensajeError = "Error al actualizar el estado";
+      }
+    });
   }
 
   constructor(private productosService: ProductosService) { }
