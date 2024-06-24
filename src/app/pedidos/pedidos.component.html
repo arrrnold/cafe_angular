@@ -87,6 +87,7 @@
             <th>Estado</th>
             <th>Fecha</th>
             <th>Cantidad a Pagar</th>
+            <th>Folio (para pago en electrónico)</th>
             <th>Propina</th>
             <th>Total con Propina</th>
             <th>Acciones</th>
@@ -110,20 +111,34 @@
             <td>{{ pedido.pedido.estado }}</td>
             <td>{{ pedido.pedido.fecha | date: 'dd/MM/yyyy' }}</td>
             <td>{{ pedido.pedido.cant_a_pagar }}</td>
+            <td>
+              <!-- Si el folio es null, se muestra un NA 
+                    indica que el pago fue en efectivo.
+                    Si no, se muestra el folio. -->
+              <ng-container *ngIf="pedido.pedido.folio; else noFolio">
+                {{ pedido.pedido.folio }}
+              </ng-container>
+              <ng-template #noFolio>
+                NA
+              </ng-template>
+              
+            </td>
             <td>{{ pedido.pedido.propina }}</td>
             <td>{{ pedido.pedido.total }}</td>
             <td>
               <div class="h-100 w-auto d-flex flex-column align-content-center ">
+
                 <!-- Botones de accion -->
                 <button (click)="cargarPedido(pedido)" class="btn bg-white border-black mb-2"
                   data-bs-target="#editarModal" data-bs-toggle="modal" type="button">
                   Editar estado
                 </button>
-                <button (click)="cargarPedido(pedido); imprimirComprobante()" class="btn btn-danger"
-                  style="background-color: #5A1236; color: white; border:#5A1236" data-bs-target="#eliminarModal"
+                <button (click)="cargarPedido(pedido)" class="btn btn-danger"
+                  style="background-color: #5A1236; color: white; border:#5A1236" data-bs-target="#imprimirModal"
                   data-bs-toggle="modal" type="button">
-                  Imprimir comprobante
+                  Generar comprobante
                 </button>
+
 
               </div>
             </td>
@@ -195,6 +210,41 @@
         <button type="button" class="btn bg-white border-black" data-bs-dismiss="modal">Cerrar</button>
         <button type="button" class="btn btn-primary" style="background-color: #5A1236; color: white; border:#5A1236"
           (click)="cambiarEstado()">Guardar cambios</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal para imprimir comprobante -->
+<div class="modal fade" id="imprimirModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Imprimir comprobante</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div id="ticket">
+          <!-- Contenido del ticket -->
+          <p><strong>Nombre:</strong> {{ pedidoCompleto.usuario?.Usuario?.nombre_completo }}</p>
+          <p><strong>Productos:</strong></p>
+          <ul>
+            <li *ngFor="let producto of pedidoCompleto.productos">{{ producto.cantidad }} x {{ producto.nombre }}</li>
+          </ul>
+          <p><strong>Preferencias:</strong> {{ pedidoCompleto.pedido?.preferencias }}</p>
+          <p><strong>Ubicación:</strong> {{ pedidoCompleto.pedido?.ubicacion }}</p>
+          <p><strong>Pagado:</strong> {{ pedidoCompleto.pedido?.pagado ? 'Sí' : 'No' }}</p>
+          <p><strong>Estado:</strong> {{ pedidoCompleto.pedido?.estado }}</p>
+          <p><strong>Fecha:</strong> {{ pedidoCompleto.pedido?.fecha | date: 'dd/MM/yyyy' }}</p>
+          <p><strong>Cantidad a pagar:</strong> {{ pedidoCompleto.pedido?.cant_a_pagar }}</p>
+          <p><strong>Propina:</strong> {{ pedidoCompleto.pedido?.propina }}</p>
+          <p><strong>Total con propina:</strong> {{ pedidoCompleto.pedido?.total }}</p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn bg-white border-black" data-bs-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary" style="background-color: #5A1236; color: white; border:#5A1236"
+          (click)="imprimirComprobante()">Imprimir</button>
       </div>
     </div>
   </div>
