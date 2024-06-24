@@ -8,7 +8,9 @@ import { Observable } from 'rxjs';
 export class ProductosService {
 
   apiUrl = 'https://api-tt2-ktkr.onrender.com/v1/producto/'; // URL del módulo de productos en la nube
+  apiUrlUsuarios = 'https://api-tt2-ktkr.onrender.com/v1/usuario/'; // URL del módulo de usuarios en la nube
   // apiUrl = 'http://localhost:3000/v1/producto/'; // URL del módulo de productos local
+  // apiUrlUsuarios = 'http://localhost:3000/v1/usuario/'; // URL del módulo de usuarios local
 
   constructor(private http: HttpClient) { }
 
@@ -66,5 +68,10 @@ export class ProductosService {
   // Método para obtener los pedidos completos
   getPedidos(): Observable<any> {
     return this.http.get(this.apiUrl + 'pedidos_completos');
+  }
+
+  // Método para obtener todos los usuarios
+  getUsuarios(): Observable<any> {
+    return this.http.get(this.apiUrlUsuarios);
   }
 }

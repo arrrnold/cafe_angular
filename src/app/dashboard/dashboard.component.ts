@@ -11,17 +11,19 @@ import { ProductosService } from '../agregar-producto/productos.service';
 })
 export class DashboardComponent implements OnInit {
 
-cerrarSesion() {
+  cerrarSesion() {
     localStorage.removeItem('token');
     localStorage.removeItem('usuario');
     window.location.href = '/login';
-}
+  }
 
   totalItems: number = 0;
 
   constructor(private productosService: ProductosService) { }
 
   productos: any = [];
+  usuarios: any = [];
+  totalUsuarios: number = 0;
   totalProductos: number = 0;
 
   ngOnInit() {
@@ -46,5 +48,12 @@ cerrarSesion() {
       // Actualizar el total de ítems para la visualización en el dashboard
       this.totalProductos = this.productos.length;
     });
+
+    this.productosService.getUsuarios().subscribe((data: any) => {
+      this.usuarios = data.usuarios;
+      console.log(data);
+      this.totalUsuarios = this.usuarios.length;
+    });
+
   }
 }
