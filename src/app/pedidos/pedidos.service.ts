@@ -7,7 +7,8 @@ import { Observable } from 'rxjs';
 })
 export class PedidosService {
 
-  apiUrl = 'http://localhost:3000/v1/producto/'; // URL del módulo de producto local
+  apiUrl = 'https://api-tt2-ktkr.onrender.com/v1/producto/'; // URL del módulo de productos en la nube
+  // apiUrl = 'http://localhost:3000/v1/producto/'; // URL del módulo de producto local
   constructor(private http: HttpClient) { }
 
   // Método para obtener los pedidos completos
