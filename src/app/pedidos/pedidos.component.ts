@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule, NgClass, NgForOf } from "@angular/common";
 import { NgxPaginationModule } from 'ngx-pagination';
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { PedidosService } from './pedidos.service';
 
 @Component({
@@ -12,33 +12,51 @@ import { PedidosService } from './pedidos.service';
     NgxPaginationModule,
     NgClass,
     FormsModule,
-    CommonModule
+    CommonModule,
+    ReactiveFormsModule
+
+
   ],
   templateUrl: './pedidos.component.html',
-  styleUrl: './pedidos.component.css'
+  styleUrls: ['./pedidos.component.css']
 })
-export class PedidosComponent implements OnInit{
+export class PedidosComponent implements OnInit {
+
+  cargarPedido(pedido: any) {
+    console.log(pedido);
+  }
 
   constructor(private pedidosService: PedidosService) { }
 
-  // variables la tabla de pedidos
   mensajeExito: string = "";
   mensajeError: string = "";
   respuesta: any;
-  
-  // variables para la paginacion
-  page: number = 1;
-  protected readonly Math = Math;
 
-  // variable para los pedidos
-  pedidosCompletos: any = [];
-  pedidoCompleto:any = {};
+  // variables para la paginacion
+  protected readonly Math = Math;
+  page: number = 1;
+  itemsPerPage: number = 5;
+  totalItems: number = 0;
+
+  pedidos: any = [];
+  pedidoCompleto: any = {};
   cosas: any = {};
 
   ngOnInit(): void {
     this.pedidosService.getPedidos().subscribe((respuesta: any) => {
       console.log(respuesta);
-      this.pedidosCompletos = respuesta.pedidos; // Asegúrate de que esto es un arreglo
+
+      this.pedidos = respuesta.pedidos.filter((p: any) => p.usuario !== null);
+
+      this.pedidos = this.pedidos.map((p: any) => {
+        if (p.usuario.Usuario.imagen_perfil === null) {
+          p.usuario.Usuario.imagen_perfil = "../../assets/img/foto_default.png";
+        }
+        return p;
+      });
+
+      // Actualizar el total de ítems para la paginación
+      this.totalItems = this.pedidos.length;
     });
   }
 }
