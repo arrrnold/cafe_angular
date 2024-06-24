@@ -35,7 +35,7 @@ export class ProductosService {
   actualizarProducto(producto: any): Observable<any> {
     const formData = new FormData();
     console.log(producto);
-    
+
     formData.append('nombre', producto.nombre);
     formData.append('precio', producto.precio);
     formData.append('cantidad', producto.cantidad);
@@ -61,5 +61,10 @@ export class ProductosService {
   cambiarVisibilidadProducto(id: number, visible: boolean): Observable<any> {
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
     return this.http.put(this.apiUrl + 'visible/' + id, { visible }, { headers });
+  }
+
+  // Método para obtener los pedidos completos
+  getPedidos(): Observable<any> {
+    return this.http.get(this.apiUrl + 'pedidos_completos');
   }
 }

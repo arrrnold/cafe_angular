@@ -1,0 +1,26 @@
+.pedidos-card {
+  background-color: #F0F9FF;
+  color: black;
+}
+
+.fa-shopping-cart {
+  color: #007bff;
+}
+
+.productos-card {
+  background-color: #FEF6FB;
+  color: black;
+}
+
+.fa-box {
+  color: #EE95C5;
+}
+
+.usuarios-card {
+  background-color: #F2FEEC;
+  color: black;
+}
+
+.fa-user {
+  color: #77F662;
+}

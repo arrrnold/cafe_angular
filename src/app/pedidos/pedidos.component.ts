@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule, NgClass, NgForOf } from "@angular/common";
 import { NgxPaginationModule } from 'ngx-pagination';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { PedidosService } from './pedidos.service';
+import { ProductosService } from '../agregar-producto/productos.service';
 
 @Component({
   selector: 'app-pedidos',
@@ -26,7 +26,7 @@ export class PedidosComponent implements OnInit {
     console.log(pedido);
   }
 
-  constructor(private pedidosService: PedidosService) { }
+  constructor(private productosService: ProductosService) { }
 
   mensajeExito: string = "";
   mensajeError: string = "";
@@ -43,7 +43,7 @@ export class PedidosComponent implements OnInit {
   cosas: any = {};
 
   ngOnInit(): void {
-    this.pedidosService.getPedidos().subscribe((respuesta: any) => {
+    this.productosService.getPedidos().subscribe((respuesta: any) => {
       console.log(respuesta);
 
       this.pedidos = respuesta.pedidos.filter((p: any) => p.usuario !== null);
@@ -57,6 +57,7 @@ export class PedidosComponent implements OnInit {
 
       // Actualizar el total de ítems para la paginación
       this.totalItems = this.pedidos.length;
+
     });
   }
 }

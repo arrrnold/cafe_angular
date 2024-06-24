@@ -9,45 +9,39 @@
         <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
           <li class="nav-item" style="background-color: #5A1236; width: 100%;">
             <a href="/dashboard" class="nav-link align-middle px-0 text-white text-start">
-              <img src="../../assets/img/inicio_icon.svg"
-                   style="padding-right: 5px; width: 20px; height: 20px;"> <span
-              class="ms-1 d-none d-sm-inline">Inicio</span>
+              <img src="../../assets/img/inicio_icon.svg" style="padding-right: 5px; width: 20px; height: 20px;"> <span
+                class="ms-1 d-none d-sm-inline">Inicio</span>
             </a>
           </li>
           <li class="nav-item" style="width: 100%;">
             <a href="/pedidos" class="nav-link align-middle px-0 text-white text-start">
-              <img src="../../assets/img/pedidos_icon.svg"
-                   style="padding-right: 5px; width: 20px; height: 20px;"> <span
-              class="ms-1 d-none d-sm-inline">Pedidos</span>
+              <img src="../../assets/img/pedidos_icon.svg" style="padding-right: 5px; width: 20px; height: 20px;"> <span
+                class="ms-1 d-none d-sm-inline">Pedidos</span>
             </a>
           </li>
           <li class="nav-item" style="width: 100%;">
             <a href="/agregar_producto" class="d-inline-flex nav-link align-middle px-0 text-white text-start">
-              <img src="../../assets/img/ag_producto_icon.svg"
-                   style="padding-right: 5px; width: 20px; height: 20px; "> <span
-              class="ms-1 d-none d-sm-inline">Agregar Producto</span>
+              <img src="../../assets/img/ag_producto_icon.svg" style="padding-right: 5px; width: 20px; height: 20px; ">
+              <span class="ms-1 d-none d-sm-inline">Agregar Producto</span>
             </a>
           </li>
           <li class="nav-item" style="width: 100%;">
             <a href="/usuarios" class="nav-link align-middle px-0 text-white text-start">
-              <img src="../../assets/img/usuarios_icon.svg"
-                   style="padding-right: 5px; width: 20px; height: 20px;"> <span
-              class="ms-1 d-none d-sm-inline">Usuarios</span>
+              <img src="../../assets/img/usuarios_icon.svg" style="padding-right: 5px; width: 20px; height: 20px;">
+              <span class="ms-1 d-none d-sm-inline">Usuarios</span>
             </a>
           </li>
           <li class="nav-item" style="width: 100%;">
             <a href="/reporte" class="nav-link align-middle px-0 text-white text-start">
 
-              <img src="../../assets/img/reporte_icon.svg"
-                   style="padding-right: 5px; width: 20px; height: 20px;">
+              <img src="../../assets/img/reporte_icon.svg" style="padding-right: 5px; width: 20px; height: 20px;">
               <span class="ms-1 d-none d-sm-inline">Reporte</span>
             </a>
           </li>
           <li class="nav-item" style="width: 100%;">
             <a href="/ajustes" class="nav-link align-middle px-0 text-white text-start">
 
-              <img src="../../assets/img/ajustes_icon.svg"
-                   style="padding-right: 5px; width: 20px; height: 20px;">
+              <img src="../../assets/img/ajustes_icon.svg" style="padding-right: 5px; width: 20px; height: 20px;">
               <span class="ms-1 d-none d-sm-inline">Ajustes</span>
             </a>
           </li>
@@ -55,9 +49,8 @@
         <hr>
         <div class="dropdown pb-4">
           <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
-             id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-            <img src="https://github.com/mdo.png" alt="hugenerd" width="30" height="30"
-                 class="rounded-circle">
+            id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+            <img src="https://github.com/mdo.png" alt="hugenerd" width="30" height="30" class="rounded-circle">
             <span class="d-none d-sm-inline mx-1">Notificaciones</span>
           </a>
           <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
@@ -74,17 +67,49 @@
     </div>
 
     <div class="col py-3">
-      <h3>Left Sidebar with Submenus</h3>
-      <p class="lead">
-        An example 2-level sidebar with collasible menu items. The menu functions like an "accordion" where only
-        a single
-        menu is be open at a time. While the sidebar itself is not toggle-able, it does responsively shrink in
-        width on smaller screens.</p>
-      <ul class="list-unstyled">
-        <li>
-          <h5>Responsive</h5> shrinks in width, hides text labels and collapses to icons only on mobile
-        </li>
-      </ul>
-    </div>
-  </div>
-</div>
+      <h4>Dashboard</h4>
+      <div class="lead flex-column">
+
+        <div class="row flex-row">
+
+          <div class="col-md-3">
+            <div class="card pedidos-card">
+              <div class="card-body">
+                <h5 class="card-title">
+                  <i class="fas fa-shopping-cart me-2" style="color: #74C1ED;"></i>
+                  Pedidos
+                </h5>
+                <p class="card-text text-end fw-bold">
+                  {{ totalItems }}
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="card productos-card">
+              <div class="card-body">
+                <h5 class="card-title">
+                  <i class="fa-solid fa-box me-2"></i>
+                  Productos
+                </h5>
+                <p class="card-text text-end fw-bold">
+                  {{ totalProductos }}
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="card usuarios-card">
+              <div class="card-body">
+                <h5 class="card-title">
+                  <i class="fa-solid fa-user me-2"></i>
+                  Usuarios
+                </h5>
+                <p class="card-text text-end fw-bold">
+                  {{ totalProductos }}
+                </p>
+              </div>
+            </div>
+          </div>
