@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule, NgClass, NgForOf } from "@angular/common";
 import { NgxPaginationModule } from 'ngx-pagination';
 import { FormsModule } from "@angular/forms";
+import { PedidosService } from './pedidos.service';
 
 @Component({
   selector: 'app-pedidos',
@@ -16,36 +17,28 @@ import { FormsModule } from "@angular/forms";
   templateUrl: './pedidos.component.html',
   styleUrl: './pedidos.component.css'
 })
-export class PedidosComponent {
+export class PedidosComponent implements OnInit{
 
+  constructor(private pedidosService: PedidosService) { }
+
+  // variables la tabla de pedidos
   mensajeExito: string = "";
   mensajeError: string = "";
   respuesta: any;
-  // pedidos: any = [];
+  
+  // variables para la paginacion
   page: number = 1;
   protected readonly Math = Math;
 
-  // arreglo local de pedidos (para pruebas)
+  // variable para los pedidos
+  pedidosCompletos: any = [];
+  pedidoCompleto:any = {};
+  cosas: any = {};
 
-  /*
-  estis son los campos de la tabla pedidos
-  <td class="align-middle">{{ pedido.fecha }}</td>
-  <td class="align-middle">{{ pedido.cant_a_pagar }}</td>
-  <td class="align-middle">{{ pedido.propina }}</td>
-  <td class="align-middle">{{ pedido.total }}</td>
-  <td class="align-middle">{{ pedido.pagado }}</td>
-  <td class="align-middle">{{ pedido.preferencias }}</td>
-  <td class="align-middle">{{ pedido.ubicacion }}</td>
-  <td class="align-middle">{{ pedido.folio }}</td>
-  <td class="align-middle">{{ pedido.estado }}</td>
-  */
-
-  pedidos = [
-    {fecha: '2021-10-01', cant_a_pagar: 100, propina: 10, total: 110, pagado: 'Sí', preferencias: 'Sin cebolla', ubicacion: 'Mesa 1', folio: 1, estado: 'Entregado'},
-  ];
-
-onAgregarPedido(pedido: any) { }
-
-onEditarPedido(pedido: any) { }
-
+  ngOnInit(): void {
+    this.pedidosService.getPedidos().subscribe((respuesta: any) => {
+      console.log(respuesta);
+      this.pedidosCompletos = respuesta.pedidos; // Asegúrate de que esto es un arreglo
+    });
+  }
 }
