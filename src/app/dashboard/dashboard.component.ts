@@ -10,6 +10,13 @@ import { ProductosService } from '../agregar-producto/productos.service';
   providers: [PedidosService]
 })
 export class DashboardComponent implements OnInit {
+
+cerrarSesion() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('usuario');
+    window.location.href = '/login';
+}
+
   totalItems: number = 0;
 
   constructor(private productosService: ProductosService) { }

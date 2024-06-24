@@ -20,6 +20,14 @@ import { buffer } from "rxjs";
   styleUrls: ["./agregar-producto.component.css"]
 })
 export class AgregarProductoComponent implements OnInit {
+
+
+  cerrarSesion() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('usuario');
+    window.location.href = '/login';
+  }
+
   formulario: any;
 
   constructor(private productosService: ProductosService) { }
@@ -121,7 +129,7 @@ export class AgregarProductoComponent implements OnInit {
     };
 
     console.log(nuevoProducto);
-    
+
     this.productosService.agregarProducto(nuevoProducto).subscribe(
       (data: any) => {
         this.mensajeExito = data.mensaje;
@@ -167,8 +175,8 @@ export class AgregarProductoComponent implements OnInit {
 
     this.productosService.actualizarProducto(productoActualizado).subscribe(
       (data: any) => {
-        this.mensajeExito = data.mensaje; 
-        
+        this.mensajeExito = data.mensaje;
+
         // actualizar el array de productos con el producto actualizado (la imagen no se guarda en la base de datos, solo el nombre del archivo)
         this.productos = this.productos.map((p: any) => {
           if (p.id === this.idProducto) {
@@ -185,14 +193,14 @@ export class AgregarProductoComponent implements OnInit {
           }
           return p;
         });
-    
+
       },
       (error: any) => {
         this.mensajeError = error.error.mensaje;
       }
     );
 
-   
+
     // los mensajes duran solo 2 segundos
     setTimeout(() => {
       this.mensajeExito = "";

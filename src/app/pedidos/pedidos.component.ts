@@ -22,6 +22,13 @@ import { ProductosService } from '../agregar-producto/productos.service';
 })
 export class PedidosComponent implements OnInit {
 
+
+  cerrarSesion() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('usuario');
+    window.location.href = '/login';
+  }
+
   cargarPedido(pedido: any) {
     console.log(pedido);
   }
