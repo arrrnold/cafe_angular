@@ -58,7 +58,7 @@ export class ProductosService {
   }
 
   // Metodo para cambiar visibilidad del producto (visible o no visible)
-  cambiarVisibilidadProducto(id: string, visible: boolean): Observable<any> {
+  cambiarVisibilidadProducto(id: number, visible: boolean): Observable<any> {
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
     return this.http.put(this.apiUrl + 'visible/' + id, { visible }, { headers });
   }

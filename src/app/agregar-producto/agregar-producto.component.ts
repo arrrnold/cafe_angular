@@ -37,7 +37,7 @@ export class AgregarProductoComponent implements OnInit {
 
   // variables para el producto seleccionado
   productoSeleccionado: any = {};
-  idProducto = "";
+  idProducto = 0;
   nombreIntroducido = "";
   precioIntroducido = 0;
   cantidadIntroducida = 0;
