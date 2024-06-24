@@ -51,8 +51,6 @@ export class PedidosComponent implements OnInit {
 
   ngOnInit(): void {
     this.productosService.getPedidos().subscribe((respuesta: any) => {
-      console.log(respuesta);
-
       this.pedidos = respuesta.pedidos.filter((p: any) => p.usuario !== null);
 
       this.pedidos = this.pedidos.map((p: any) => {

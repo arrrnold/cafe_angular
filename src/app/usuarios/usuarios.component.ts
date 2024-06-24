@@ -16,22 +16,32 @@ import { CommonModule } from '@angular/common';
 })
 export class UsuariosComponent implements OnInit {
 
-  editarRol() {
-    console.log(this.usuarioSeleccionado);
-    this.usuarioService.actualizarRol(this.usuarioSeleccionado).subscribe((data: any) => {
-      console.log(data);
-    });
-  }
-
+  usuarios: any = [];
   usuarioSeleccionado: any = {};
+  mensajeError: string = '';
+  mensajeExito: string = '';
 
   cargarUsuario(usuario: any) {
-    console.log(usuario);
     this.usuarioSeleccionado = usuario;
 
   }
 
-  usuarios: any = [];
+
+  editarRol() {
+    this.usuarioService.actualizarRol(this.usuarioSeleccionado).subscribe((data: any) => {
+      if (data.estado === 1) {
+        this.mensajeExito = data.mensaje;
+      } else {
+        this.mensajeError = data.mensaje;
+      }
+
+      setTimeout(() => {
+        this.mensajeError = '';
+        this.mensajeExito = '';
+      }, 3000);
+
+    });
+  }
 
   cerrarSesion() {
     localStorage.removeItem('token');
@@ -45,7 +55,6 @@ export class UsuariosComponent implements OnInit {
     // Obtener los usuarios
     this.usuarioService.obtenerUsuarios().subscribe((data: any) => {
       this.usuarios = data.usuarios;
-      console.log(this.usuarios);
     });
   }
 }

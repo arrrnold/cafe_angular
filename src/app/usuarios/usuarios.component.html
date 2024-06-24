@@ -116,6 +116,16 @@
             </div>
             <div class="modal-body">
               <div class="form-group">
+
+                <!-- mensajeError o mensajeExito segun sea el caso *alertas -->
+                <div *ngIf="mensajeError" class="alert alert-danger" role="alert">
+                  {{mensajeError}}
+                </div>
+                <div *ngIf="mensajeExito" class="alert alert-success" role="alert">
+                  {{mensajeExito}}
+                </div>
+                
+
                 <label for="rol">Rol</label>
                 <select class="form-select" id="rol" [(ngModel)]="usuarioSeleccionado.rol" name="rol">
                   <option value="administrador">Administrador</option>
@@ -124,8 +134,8 @@
               </div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-              <button type="button" class="btn btn-primary" (click)="editarRol()">Guardar cambios</button>
+              <button type="button" class="btn border-black" data-bs-dismiss="modal">Cerrar</button>
+              <button type="button" class="btn btn-primary"  style="background-color: #5A1236; color: white; border:#5A1236" (click)="editarRol()">Guardar cambios</button>
             </div>
           </div>
         </div>

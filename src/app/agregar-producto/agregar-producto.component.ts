@@ -66,7 +66,6 @@ export class AgregarProductoComponent implements OnInit {
 
   cargarProducto(producto: any) {
 
-    console.log(producto);
     this.idProducto = producto.id;
     this.nombreIntroducido = producto.nombre;
     this.precioIntroducido = producto.precio;
@@ -128,7 +127,6 @@ export class AgregarProductoComponent implements OnInit {
       imagen: this.imagenArchivo
     };
 
-    console.log(nuevoProducto);
 
     this.productosService.agregarProducto(nuevoProducto).subscribe(
       (data: any) => {
@@ -171,7 +169,6 @@ export class AgregarProductoComponent implements OnInit {
       imagen: this.imagenArchivo
     };
 
-    console.log(productoActualizado);
 
     this.productosService.actualizarProducto(productoActualizado).subscribe(
       (data: any) => {

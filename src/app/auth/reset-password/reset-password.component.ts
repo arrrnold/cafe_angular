@@ -32,16 +32,13 @@ export class ResetPasswordComponent implements OnInit {
       .subscribe({
         next: (res: any) => {
           if (res.estado == 1) {
-            console.log('contraseña cambiada');
             // navegar hacia el login
             window.location.href = '/auth/login';
           } else {
-            console.log('error al cambiar la contraseña');
             this.resetError = res.mensaje;
           }
         },
         error: (err: any) => {
-          console.log('error al cambiar la contraseña');
           this.resetError = 'Error al restablecer la contraseña. Verifica los campos e inténtalo de nuevo.';
         }
       });
