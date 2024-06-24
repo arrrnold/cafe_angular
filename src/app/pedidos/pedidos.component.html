@@ -119,7 +119,7 @@
                   data-bs-target="#editarModal" data-bs-toggle="modal" type="button">
                   Editar estado
                 </button>
-                <button (click)="cargarPedido(pedido)" class="btn btn-danger"
+                <button (click)="cargarPedido(pedido); imprimirComprobante()" class="btn btn-danger"
                   style="background-color: #5A1236; color: white; border:#5A1236" data-bs-target="#eliminarModal"
                   data-bs-toggle="modal" type="button">
                   Imprimir comprobante
@@ -184,7 +184,7 @@
         </div>
         <div class="form-group">
           <label for="estado">Estado</label>
-          <select class="form-select" id="estado" [(ngModel)]="estadoProductoSeleccionado" name="estado">
+          <select class="form-select" id="estado" [(ngModel)]="estadoPedidoSeleccionado" name="estado">
             <option value="Pendiente">Pendiente</option>
             <option value="En camino">En camino</option>
             <option value="Entregado">Entregado</option>

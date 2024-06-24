@@ -22,8 +22,10 @@ import { ProductosService } from '../agregar-producto/productos.service';
 })
 export class PedidosComponent implements OnInit {
 
-  estadoProductoSeleccionado: string = "";
-  idProductoSeleccionado: number = 0;
+  estadoPedidoSeleccionado: string = "";
+  idPedidoSeleccionado: number = 0;
+
+
 
   cerrarSesion() {
     localStorage.removeItem('token');
@@ -32,20 +34,28 @@ export class PedidosComponent implements OnInit {
   }
 
   cargarPedido(pedido: any) {
-    this.estadoProductoSeleccionado = pedido.pedido.estado;
-    this.idProductoSeleccionado = pedido.pedido.id;
+    this.estadoPedidoSeleccionado = pedido.pedido.estado;
+    this.idPedidoSeleccionado = pedido.pedido.id;
+
+  }
+
+  imprimirComprobante() {
+    // segun los detalles del pedido cargado, se debe imprimir el comprobante en pdf usando la libreria jsPDF
+
+    // el pedido completo esta almecenado en 
+
   }
 
   cambiarEstado() {
-    this.productosService.actualizarPedido(this.idProductoSeleccionado, this.estadoProductoSeleccionado).subscribe((respuesta: any) => {
+    this.productosService.actualizarPedido(this.idPedidoSeleccionado, this.estadoPedidoSeleccionado).subscribe((respuesta: any) => {
       this.respuesta = respuesta;
       if (this.respuesta.estado === 1) {
         this.mensajeExito = "Estado actualizado con éxito";
 
         // actualizar el estado en la lista de pedidos en el pedido seleccionado
         this.pedidos = this.pedidos.map((p: any) => {
-          if (p.pedido.id === this.idProductoSeleccionado) {
-            p.pedido.estado = this.estadoProductoSeleccionado;
+          if (p.pedido.id === this.idPedidoSeleccionado) {
+            p.pedido.estado = this.estadoPedidoSeleccionado;
           }
           return p;
         });
