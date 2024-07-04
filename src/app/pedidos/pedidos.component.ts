@@ -42,6 +42,8 @@ export class PedidosComponent implements OnInit {
   ngOnInit(): void {
     this.productosService.getPedidos().subscribe((respuesta: any) => {
       this.pedidos = respuesta.pedidos.filter((p: any) => p.usuario !== null);
+      // filtrar los pedidos que no tienen productos
+      this.pedidos = this.pedidos.filter((p: any) => p.productos.length > 0);
 
       this.pedidos = this.pedidos.map((p: any) => {
         if (p.usuario.Usuario.imagen_perfil === null) {
