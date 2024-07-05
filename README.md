@@ -2,6 +2,8 @@
 
 Es el proyecto de Angular generado para el proyecto de TT "Cafeterías Empresariales Exprés" en UPIIZ.
 
+Este necesita [la siguiente API para funcionar](https://github.com/evelyn1d9/API_TT2).
+
 ## Versión de Angular
 
 Este proyecto fue generado con [Angular CLI](https://github.com/angular/angular-cli) versión 17.3.6. Los apartados de abajo fueron generados automáticamente al crear el proyecto con `ng new cafe_angular`.
